@@ -94,7 +94,7 @@
   }
   ```
 
-- 🔒 позначає ендпоінти, які доступні тільки залогіненому користувачу.
+- Тільки залогіненому користувачу доступні: усі ендпоінти `/api/me`, вихід, а також додавання, редагування й видалення рецептів, інгредієнтів, категорій і кухонь. Решта (перегляд каталогу, рецептів, інгредієнтів, авторів, реєстрація і вхід) доступна всім.
 
   > TBD: авторизацію додамо в окремому завданні, тоді ж оберу спосіб (сесія чи токен) і визначу, хто може редагувати інгредієнти, категорії й кухні: будь-який користувач чи тільки адміністратор.
 
@@ -106,7 +106,7 @@
 | `201 Created` | об'єкт створено |
 | `204 No Content` | об'єкт видалено, тіла відповіді немає |
 | `400 Bad Request` | неправильні дані в запиті (не заповнене обов'язкове поле, від'ємні грами тощо) |
-| `401 Unauthorized` | користувач не залогінений, а ендпоінт 🔒 |
+| `401 Unauthorized` | користувач не залогінений, а ендпоінт |
 | `403 Forbidden` | користувач залогінений, але не має права на цю дію (наприклад, редагує чужий рецепт) |
 | `404 Not Found` | об'єкта з таким id немає |
 | `409 Conflict` | дію не можна виконати через інші дані (наприклад, такий email уже зареєстрований) |
@@ -170,7 +170,7 @@ Response `200 OK`: дані користувача (як у реєстрації
 
 > TBD: що саме повертає вхід (сесійна cookie чи токен) — визначу, коли буду робити авторизацію.
 
-#### `POST /api/auth/logout` 🔒 — вихід
+#### `POST /api/auth/logout` — вихід
 
 Request body немає. Response `204 No Content`.
 
@@ -178,7 +178,7 @@ Request body немає. Response `204 No Content`.
 
 ### Профіль
 
-#### `GET /api/me` 🔒 — мій профіль
+#### `GET /api/me` — мій профіль
 
 Response `200 OK`:
 
@@ -200,7 +200,7 @@ Response `200 OK`:
 }
 ```
 
-#### `PATCH /api/me` 🔒 — редагувати профіль і денну ціль
+#### `PATCH /api/me` — редагувати профіль і денну ціль
 
 Request body — тільки поля, які змінюються:
 
@@ -305,7 +305,7 @@ Response `200 OK`:
 
 Помилки: `404` — рецепта немає.
 
-#### `POST /api/recipes` 🔒 — додати рецепт
+#### `POST /api/recipes` — додати рецепт
 
 Автором стає залогінений користувач. КБЖВ не передається, сервер рахує його сам.
 
@@ -337,7 +337,7 @@ Response `201 Created`: створений рецепт (як у `GET /api/recip
 
 Помилки: `400` — немає назви, інгредієнтів або кроків, `servings` ≤ 0, грами ≤ 0, не існує категорії/кухні/інгредієнта з таким id; `401`.
 
-#### `PATCH /api/recipes/{id}` 🔒 — редагувати рецепт
+#### `PATCH /api/recipes/{id}` — редагувати рецепт
 
 Request body — тільки поля, які змінюються, у тому ж форматі, що й при створенні. Якщо передано `ingredients` або `steps`, список замінюється повністю.
 
@@ -356,7 +356,7 @@ Response `200 OK`: оновлений рецепт з перерахованим
 
 Помилки: `400`, `401`, `403` — рецепт не мій, `404`.
 
-#### `DELETE /api/recipes/{id}` 🔒 — видалити рецепт
+#### `DELETE /api/recipes/{id}` — видалити рецепт
 
 Response `204 No Content`. Помилки: `401`, `403` — рецепт не мій, `404`.
 
@@ -394,7 +394,7 @@ Response `200 OK`: інгредієнт (як елемент списку вищ
 
 Рецепти з цим інгредієнтом сторінка отримує окремим запитом `GET /api/recipes?ingredient={id}`, щоб не дублювати пошук, фільтри й сортування каталогу.
 
-#### `POST /api/ingredients` 🔒 — додати інгредієнт
+#### `POST /api/ingredients` — додати інгредієнт
 
 Request body:
 
@@ -407,13 +407,13 @@ Request body:
 
 Response `201 Created`: створений інгредієнт. Помилки: `400` — від'ємні значення, `401`, `409` — інгредієнт з такою назвою вже є.
 
-#### `PATCH /api/ingredients/{id}` 🔒 — редагувати інгредієнт
+#### `PATCH /api/ingredients/{id}` — редагувати інгредієнт
 
 Request body — тільки поля, які змінюються, наприклад `{ "per_100g": { "kcal": 160 } }`.
 
 Response `200 OK`: оновлений інгредієнт. КБЖВ усіх рецептів з ним перераховується. Помилки: `400`, `401`, `404`, `409`.
 
-#### `DELETE /api/ingredients/{id}` 🔒 — видалити інгредієнт
+#### `DELETE /api/ingredients/{id}` — видалити інгредієнт
 
 Response `204 No Content`. Помилки: `401`, `404`, `409` — інгредієнт використовується в рецептах (спершу треба прибрати його з рецептів).
 
@@ -440,15 +440,15 @@ Response `204 No Content`. Помилки: `401`, `404`, `409` — інгред�
 
 Response `200 OK`: `{ "id": 1, "name": "Сніданки", "recipes_count": 24 }`. Помилки: `404`. Рецепти: `GET /api/recipes?category={id}` або `?cuisine={id}`.
 
-#### `POST /api/{resource}` 🔒 — додати
+#### `POST /api/{resource}` — додати
 
 Request body: `{ "name": "Десерти" }`. Response `201 Created`: створений об'єкт. Помилки: `400`, `401`, `409` — така назва вже є.
 
-#### `PATCH /api/{resource}/{id}` 🔒 — перейменувати
+#### `PATCH /api/{resource}/{id}` — перейменувати
 
 Request body: `{ "name": "Супи та борщі" }`. Response `200 OK`. Помилки: `400`, `401`, `404`, `409`.
 
-#### `DELETE /api/{resource}/{id}` 🔒 — видалити
+#### `DELETE /api/{resource}/{id}` — видалити
 
 Response `204 No Content`. Помилки: `401`, `404`, `409` — у категорії/кухні є рецепти.
 
@@ -504,7 +504,7 @@ Email і денна ціль автора тут не показуються, ц
 
 Тип прийому їжі (`meal_type`): `breakfast` — сніданок, `lunch` — обід, `dinner` — вечеря, `snack` — перекус.
 
-#### `GET /api/me/meal-plans` 🔒 — історія планів
+#### `GET /api/me/meal-plans` — історія планів
 
 Показує дні, на які є план, з підсумком КБЖВ. Query-параметри: `from`, `to` — період (за замовчуванням останні 30 днів), `page`, `page_size`.
 
@@ -522,7 +522,7 @@ Response `200 OK`:
 }
 ```
 
-#### `GET /api/me/meal-plans/{date}` 🔒 — план на день
+#### `GET /api/me/meal-plans/{date}` — план на день
 
 Response `200 OK` (якщо на цей день ще нічого немає, `items` порожній, а підсумок нульовий):
 
@@ -553,7 +553,7 @@ Response `200 OK` (якщо на цей день ще нічого немає, `
 
 `nutrition` страви = КБЖВ порції × `servings`. Помилки: `400` — неправильний формат дати.
 
-#### `POST /api/me/meal-plans/{date}/items` 🔒 — додати страву в план
+#### `POST /api/me/meal-plans/{date}/items` — додати страву в план
 
 Request body:
 
@@ -569,17 +569,17 @@ Response `201 Created`: доданий елемент плану (як елем�
 
 Помилки: `400` — `servings` ≤ 0, невідомий `meal_type`, рецепта з таким id немає; `401`.
 
-#### `PATCH /api/me/meal-plans/{date}/items/{itemId}` 🔒 — змінити кількість порцій або прийом їжі
+#### `PATCH /api/me/meal-plans/{date}/items/{itemId}` — змінити кількість порцій або прийом їжі
 
 Request body: `{ "servings": 2 }` або `{ "meal_type": "dinner" }`.
 
 Response `200 OK`: оновлений елемент. Помилки: `400`, `401`, `404`.
 
-#### `DELETE /api/me/meal-plans/{date}/items/{itemId}` 🔒 — прибрати страву з плану
+#### `DELETE /api/me/meal-plans/{date}/items/{itemId}` — прибрати страву з плану
 
 Response `204 No Content`. Помилки: `401`, `404`.
 
-#### `GET /api/me/meal-plans/{date}/shopping-list` 🔒 — список покупок на день
+#### `GET /api/me/meal-plans/{date}/shopping-list` — список покупок на день
 
 Усі інгредієнти страв цього дня з урахуванням кількості порцій; однакові інгредієнти з різних рецептів складаються.
 
@@ -628,32 +628,32 @@ Response `200 OK`:
 |---|---|---|
 | `POST` | `/api/auth/register` | реєстрація |
 | `POST` | `/api/auth/login` | вхід |
-| `POST` | `/api/auth/logout` 🔒 | вихід |
-| `GET` | `/api/me` 🔒 | мій профіль |
-| `PATCH` | `/api/me` 🔒 | редагувати профіль і денну ціль |
+| `POST` | `/api/auth/logout` | вихід |
+| `GET` | `/api/me` | мій профіль |
+| `PATCH` | `/api/me` | редагувати профіль і денну ціль |
 | `GET` | `/api/recipes` | каталог з пошуком, фільтрами й сортуванням |
 | `GET` | `/api/recipes/{id}` | сторінка рецепта |
-| `POST` | `/api/recipes` 🔒 | додати рецепт |
-| `PATCH` | `/api/recipes/{id}` 🔒 | редагувати рецепт |
-| `DELETE` | `/api/recipes/{id}` 🔒 | видалити рецепт |
+| `POST` | `/api/recipes` | додати рецепт |
+| `PATCH` | `/api/recipes/{id}` | редагувати рецепт |
+| `DELETE` | `/api/recipes/{id}` | видалити рецепт |
 | `GET` | `/api/ingredients` | перелік інгредієнтів |
 | `GET` | `/api/ingredients/{id}` | сторінка інгредієнта |
-| `POST` | `/api/ingredients` 🔒 | додати інгредієнт |
-| `PATCH` | `/api/ingredients/{id}` 🔒 | редагувати інгредієнт |
-| `DELETE` | `/api/ingredients/{id}` 🔒 | видалити інгредієнт |
+| `POST` | `/api/ingredients` | додати інгредієнт |
+| `PATCH` | `/api/ingredients/{id}` | редагувати інгредієнт |
+| `DELETE` | `/api/ingredients/{id}` | видалити інгредієнт |
 | `GET` | `/api/categories`, `/api/cuisines` | перелік категорій / кухонь |
 | `GET` | `/api/categories/{id}`, `/api/cuisines/{id}` | одна категорія / кухня |
-| `POST` | `/api/categories`, `/api/cuisines` 🔒 | додати |
-| `PATCH` | `/api/categories/{id}`, `/api/cuisines/{id}` 🔒 | перейменувати |
-| `DELETE` | `/api/categories/{id}`, `/api/cuisines/{id}` 🔒 | видалити |
+| `POST` | `/api/categories`, `/api/cuisines` | додати |
+| `PATCH` | `/api/categories/{id}`, `/api/cuisines/{id}` | перейменувати |
+| `DELETE` | `/api/categories/{id}`, `/api/cuisines/{id}` | видалити |
 | `GET` | `/api/authors` | перелік авторів |
 | `GET` | `/api/authors/{id}` | сторінка автора |
-| `GET` | `/api/me/meal-plans` 🔒 | історія планів харчування |
-| `GET` | `/api/me/meal-plans/{date}` 🔒 | план на день з підсумком КБЖВ |
-| `POST` | `/api/me/meal-plans/{date}/items` 🔒 | додати страву в план |
-| `PATCH` | `/api/me/meal-plans/{date}/items/{itemId}` 🔒 | змінити порції або прийом їжі |
-| `DELETE` | `/api/me/meal-plans/{date}/items/{itemId}` 🔒 | прибрати страву з плану |
-| `GET` | `/api/me/meal-plans/{date}/shopping-list` 🔒 | список покупок на день |
+| `GET` | `/api/me/meal-plans` | історія планів харчування |
+| `GET` | `/api/me/meal-plans/{date}` | план на день з підсумком КБЖВ |
+| `POST` | `/api/me/meal-plans/{date}/items` | додати страву в план |
+| `PATCH` | `/api/me/meal-plans/{date}/items/{itemId}` | змінити порції або прийом їжі |
+| `DELETE` | `/api/me/meal-plans/{date}/items/{itemId}` | прибрати страву з плану |
+| `GET` | `/api/me/meal-plans/{date}/shopping-list` | список покупок на день |
 | `GET` | `/api/about` | сторінка «Про нас» |
 
 ## Схема бази даних
