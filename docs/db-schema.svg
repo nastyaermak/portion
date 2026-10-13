@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="800" viewBox="0 0 1680 800">
+<style>
+text { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; }
+.title { font-size: 15px; font-weight: 700; fill: #fff; }
+.col { font-size: 13px; fill: #1f2328; }
+.type { font-size: 12px; fill: #6b7280; }
+.key { font-size: 11px; font-weight: 700; fill: #6b7280; }
+.card { font-size: 12px; font-weight: 700; fill: #4b5563; }
+.legend { font-size: 13px; fill: #374151; }
+</style>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<path d="M470,110.0 H395 V446.0 H340" fill="none" stroke="#8a8f98" stroke-width="1.6"/>
+<text x="456" y="105.0" class="card">N</text>
+<text x="348" y="441.0" class="card">1</text>
+<path d="M470,134.0 H410 V86.0 H340" fill="none" stroke="#8a8f98" stroke-width="1.6"/>
+<text x="456" y="129.0" class="card">N</text>
+<text x="348" y="81.0" class="card">1</text>
+<path d="M470,158.0 H425 V236.0 H340" fill="none" stroke="#8a8f98" stroke-width="1.6"/>
+<text x="456" y="153.0" class="card">N</text>
+<text x="348" y="231.0" class="card">1</text>
+<path d="M470,540.0 H380 V446.0 H340" fill="none" stroke="#8a8f98" stroke-width="1.6"/>
+<text x="456" y="535.0" class="card">N</text>
+<text x="348" y="441.0" class="card">1</text>
+<path d="M900,110.0 H815 V86.0 H770" fill="none" stroke="#8a8f98" stroke-width="1.6"/>
+<text x="886" y="105.0" class="card">N</text>
+<text x="778" y="81.0" class="card">1</text>
+<path d="M900,300.0 H830 V86.0 H770" fill="none" stroke="#8a8f98" stroke-width="1.6"/>
+<text x="886" y="295.0" class="card">N</text>
+<text x="778" y="81.0" class="card">1</text>
+<path d="M900,564.0 H845 V86.0 H770" fill="none" stroke="#8a8f98" stroke-width="1.6"/>
+<text x="886" y="559.0" class="card">N</text>
+<text x="778" y="81.0" class="card">1</text>
+<path d="M900,540.0 H860 V516.0 H770" fill="none" stroke="#8a8f98" stroke-width="1.6"/>
+<text x="886" y="535.0" class="card">N</text>
+<text x="778" y="511.0" class="card">1</text>
+<path d="M1200,324.0 H1300 V276.0 H1330" fill="none" stroke="#8a8f98" stroke-width="1.6"/>
+<text x="1206" y="319.0" class="card">N</text>
+<text x="1314" y="271.0" class="card">1</text>
+<rect x="40" y="40" width="300" height="82" rx="6" fill="#ffffff" stroke="#3b6ea8" stroke-width="1.6"/>
+<path d="M40,74 V46 a6,6 0 0 1 6,-6 H334 a6,6 0 0 1 6,6 V74 Z" fill="#3b6ea8"/>
+<text x="52" y="62" class="title">categories</text>
+<text x="52" y="90" class="col" font-weight="700">id</text>
+<text x="200" y="90" class="type">integer</text>
+<text x="328" y="90" class="key" text-anchor="end">PK</text>
+<rect x="41" y="98" width="298" height="24" fill="#f4f5f7"/>
+<text x="52" y="114" class="col">name</text>
+<text x="200" y="114" class="type">varchar(50)</text>
+<rect x="40" y="190" width="300" height="82" rx="6" fill="#ffffff" stroke="#3b6ea8" stroke-width="1.6"/>
+<path d="M40,224 V196 a6,6 0 0 1 6,-6 H334 a6,6 0 0 1 6,6 V224 Z" fill="#3b6ea8"/>
+<text x="52" y="212" class="title">cuisines</text>
+<text x="52" y="240" class="col" font-weight="700">id</text>
+<text x="200" y="240" class="type">integer</text>
+<text x="328" y="240" class="key" text-anchor="end">PK</text>
+<rect x="41" y="248" width="298" height="24" fill="#f4f5f7"/>
+<text x="52" y="264" class="col">name</text>
+<text x="200" y="264" class="type">varchar(50)</text>
+<rect x="40" y="400" width="300" height="322" rx="6" fill="#ffffff" stroke="#c0662b" stroke-width="1.6"/>
+<path d="M40,434 V406 a6,6 0 0 1 6,-6 H334 a6,6 0 0 1 6,6 V434 Z" fill="#c0662b"/>
+<text x="52" y="422" class="title">users</text>
+<text x="52" y="450" class="col" font-weight="700">id</text>
+<text x="200" y="450" class="type">integer</text>
+<text x="328" y="450" class="key" text-anchor="end">PK</text>
+<rect x="41" y="458" width="298" height="24" fill="#f4f5f7"/>
+<text x="52" y="474" class="col">username</text>
+<text x="200" y="474" class="type">varchar(50)</text>
+<text x="328" y="474" class="key" text-anchor="end">UQ</text>
+<text x="52" y="498" class="col">email</text>
+<text x="200" y="498" class="type">varchar(254)</text>
+<text x="328" y="498" class="key" text-anchor="end">UQ</text>
+<rect x="41" y="506" width="298" height="24" fill="#f4f5f7"/>
+<text x="52" y="522" class="col">password_hash</text>
+<text x="200" y="522" class="type">varchar(255)</text>
+<text x="52" y="546" class="col">display_name</text>
+<text x="200" y="546" class="type">varchar(100)</text>
+<rect x="41" y="554" width="298" height="24" fill="#f4f5f7"/>
+<text x="52" y="570" class="col">bio</text>
+<text x="200" y="570" class="type">text</text>
+<text x="52" y="594" class="col">avatar_url</text>
+<text x="200" y="594" class="type">varchar(500)</text>
+<rect x="41" y="602" width="298" height="24" fill="#f4f5f7"/>
+<text x="52" y="618" class="col">kcal_goal</text>
+<text x="200" y="618" class="type">integer</text>
+<text x="52" y="642" class="col">protein_goal</text>
+<text x="200" y="642" class="type">integer</text>
+<rect x="41" y="650" width="298" height="24" fill="#f4f5f7"/>
+<text x="52" y="666" class="col">fat_goal</text>
+<text x="200" y="666" class="type">integer</text>
+<text x="52" y="690" class="col">carbs_goal</text>
+<text x="200" y="690" class="type">integer</text>
+<rect x="41" y="698" width="298" height="24" fill="#f4f5f7"/>
+<text x="52" y="714" class="col">created_at</text>
+<text x="200" y="714" class="type">timestamp</text>
+<rect x="470" y="40" width="300" height="298" rx="6" fill="#ffffff" stroke="#2f7d4f" stroke-width="1.6"/>
+<path d="M470,74 V46 a6,6 0 0 1 6,-6 H764 a6,6 0 0 1 6,6 V74 Z" fill="#2f7d4f"/>
+<text x="482" y="62" class="title">recipes</text>
+<text x="482" y="90" class="col" font-weight="700">id</text>
+<text x="630" y="90" class="type">integer</text>
+<text x="758" y="90" class="key" text-anchor="end">PK</text>
+<rect x="471" y="98" width="298" height="24" fill="#f4f5f7"/>
+<text x="482" y="114" class="col">author_id</text>
+<text x="630" y="114" class="type">integer</text>
+<text x="758" y="114" class="key" text-anchor="end">FK</text>
+<text x="482" y="138" class="col">category_id</text>
+<text x="630" y="138" class="type">integer</text>
+<text x="758" y="138" class="key" text-anchor="end">FK</text>
+<rect x="471" y="146" width="298" height="24" fill="#f4f5f7"/>
+<text x="482" y="162" class="col">cuisine_id</text>
+<text x="630" y="162" class="type">integer</text>
+<text x="758" y="162" class="key" text-anchor="end">FK</text>
+<text x="482" y="186" class="col">title</text>
+<text x="630" y="186" class="type">varchar(200)</text>
+<rect x="471" y="194" width="298" height="24" fill="#f4f5f7"/>
+<text x="482" y="210" class="col">description</text>
+<text x="630" y="210" class="type">text</text>
+<text x="482" y="234" class="col">image_url</text>
+<text x="630" y="234" class="type">varchar(500)</text>
+<rect x="471" y="242" width="298" height="24" fill="#f4f5f7"/>
+<text x="482" y="258" class="col">servings</text>
+<text x="630" y="258" class="type">integer</text>
+<text x="482" y="282" class="col">cook_time_min</text>
+<text x="630" y="282" class="type">integer</text>
+<rect x="471" y="290" width="298" height="24" fill="#f4f5f7"/>
+<text x="482" y="306" class="col">created_at</text>
+<text x="630" y="306" class="type">timestamp</text>
+<text x="482" y="330" class="col">updated_at</text>
+<text x="630" y="330" class="type">timestamp</text>
+<rect x="900" y="40" width="300" height="130" rx="6" fill="#ffffff" stroke="#2f7d4f" stroke-width="1.6"/>
+<path d="M900,74 V46 a6,6 0 0 1 6,-6 H1194 a6,6 0 0 1 6,6 V74 Z" fill="#2f7d4f"/>
+<text x="912" y="62" class="title">recipe_steps</text>
+<text x="912" y="90" class="col" font-weight="700">id</text>
+<text x="1060" y="90" class="type">integer</text>
+<text x="1188" y="90" class="key" text-anchor="end">PK</text>
+<rect x="901" y="98" width="298" height="24" fill="#f4f5f7"/>
+<text x="912" y="114" class="col">recipe_id</text>
+<text x="1060" y="114" class="type">integer</text>
+<text x="1188" y="114" class="key" text-anchor="end">FK</text>
+<text x="912" y="138" class="col">position</text>
+<text x="1060" y="138" class="type">integer</text>
+<rect x="901" y="146" width="298" height="24" fill="#f4f5f7"/>
+<text x="912" y="162" class="col">text</text>
+<text x="1060" y="162" class="type">text</text>
+<rect x="900" y="230" width="300" height="154" rx="6" fill="#ffffff" stroke="#2f7d4f" stroke-width="1.6"/>
+<path d="M900,264 V236 a6,6 0 0 1 6,-6 H1194 a6,6 0 0 1 6,6 V264 Z" fill="#2f7d4f"/>
+<text x="912" y="252" class="title">recipe_ingredients</text>
+<text x="912" y="280" class="col" font-weight="700">id</text>
+<text x="1060" y="280" class="type">integer</text>
+<text x="1188" y="280" class="key" text-anchor="end">PK</text>
+<rect x="901" y="288" width="298" height="24" fill="#f4f5f7"/>
+<text x="912" y="304" class="col">recipe_id</text>
+<text x="1060" y="304" class="type">integer</text>
+<text x="1188" y="304" class="key" text-anchor="end">FK</text>
+<text x="912" y="328" class="col">ingredient_id</text>
+<text x="1060" y="328" class="type">integer</text>
+<text x="1188" y="328" class="key" text-anchor="end">FK</text>
+<rect x="901" y="336" width="298" height="24" fill="#f4f5f7"/>
+<text x="912" y="352" class="col">amount_g</text>
+<text x="1060" y="352" class="type">decimal(7,1)</text>
+<text x="912" y="376" class="col">note</text>
+<text x="1060" y="376" class="type">varchar(100)</text>
+<rect x="1330" y="230" width="300" height="178" rx="6" fill="#ffffff" stroke="#3b6ea8" stroke-width="1.6"/>
+<path d="M1330,264 V236 a6,6 0 0 1 6,-6 H1624 a6,6 0 0 1 6,6 V264 Z" fill="#3b6ea8"/>
+<text x="1342" y="252" class="title">ingredients</text>
+<text x="1342" y="280" class="col" font-weight="700">id</text>
+<text x="1490" y="280" class="type">integer</text>
+<text x="1618" y="280" class="key" text-anchor="end">PK</text>
+<rect x="1331" y="288" width="298" height="24" fill="#f4f5f7"/>
+<text x="1342" y="304" class="col">name</text>
+<text x="1490" y="304" class="type">varchar(100)</text>
+<text x="1618" y="304" class="key" text-anchor="end">UQ</text>
+<text x="1342" y="328" class="col">kcal_100g</text>
+<text x="1490" y="328" class="type">decimal(6,1)</text>
+<rect x="1331" y="336" width="298" height="24" fill="#f4f5f7"/>
+<text x="1342" y="352" class="col">protein_100g</text>
+<text x="1490" y="352" class="type">decimal(5,1)</text>
+<text x="1342" y="376" class="col">fat_100g</text>
+<text x="1490" y="376" class="type">decimal(5,1)</text>
+<rect x="1331" y="384" width="298" height="24" fill="#f4f5f7"/>
+<text x="1342" y="400" class="col">carbs_100g</text>
+<text x="1490" y="400" class="type">decimal(5,1)</text>
+<rect x="470" y="470" width="300" height="106" rx="6" fill="#ffffff" stroke="#c0662b" stroke-width="1.6"/>
+<path d="M470,504 V476 a6,6 0 0 1 6,-6 H764 a6,6 0 0 1 6,6 V504 Z" fill="#c0662b"/>
+<text x="482" y="492" class="title">meal_plans</text>
+<text x="482" y="520" class="col" font-weight="700">id</text>
+<text x="630" y="520" class="type">integer</text>
+<text x="758" y="520" class="key" text-anchor="end">PK</text>
+<rect x="471" y="528" width="298" height="24" fill="#f4f5f7"/>
+<text x="482" y="544" class="col">user_id</text>
+<text x="630" y="544" class="type">integer</text>
+<text x="758" y="544" class="key" text-anchor="end">FK</text>
+<text x="482" y="568" class="col">date</text>
+<text x="630" y="568" class="type">date</text>
+<rect x="900" y="470" width="300" height="154" rx="6" fill="#ffffff" stroke="#c0662b" stroke-width="1.6"/>
+<path d="M900,504 V476 a6,6 0 0 1 6,-6 H1194 a6,6 0 0 1 6,6 V504 Z" fill="#c0662b"/>
+<text x="912" y="492" class="title">meal_plan_items</text>
+<text x="912" y="520" class="col" font-weight="700">id</text>
+<text x="1060" y="520" class="type">integer</text>
+<text x="1188" y="520" class="key" text-anchor="end">PK</text>
+<rect x="901" y="528" width="298" height="24" fill="#f4f5f7"/>
+<text x="912" y="544" class="col">meal_plan_id</text>
+<text x="1060" y="544" class="type">integer</text>
+<text x="1188" y="544" class="key" text-anchor="end">FK</text>
+<text x="912" y="568" class="col">recipe_id</text>
+<text x="1060" y="568" class="type">integer</text>
+<text x="1188" y="568" class="key" text-anchor="end">FK</text>
+<rect x="901" y="576" width="298" height="24" fill="#f4f5f7"/>
+<text x="912" y="592" class="col">meal_type</text>
+<text x="1060" y="592" class="type">varchar(20)</text>
+<text x="912" y="616" class="col">servings</text>
+<text x="1060" y="616" class="type">decimal(4,1)</text>
+<rect x="40" y="760" width="14" height="14" rx="3" fill="#3b6ea8"/>
+<text x="62" y="772" class="legend">довідники</text>
+<rect x="172" y="760" width="14" height="14" rx="3" fill="#2f7d4f"/>
+<text x="194" y="772" class="legend">рецепти</text>
+<rect x="288" y="760" width="14" height="14" rx="3" fill="#c0662b"/>
+<text x="310" y="772" class="legend">користувачі й плани харчування</text>
+<text x="608" y="772" class="legend">PK — первинний ключ, FK — зовнішній ключ, UQ — унікальне, 1 / N — зв'язок «один до багатьох»</text>
+</svg>
