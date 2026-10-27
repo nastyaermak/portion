@@ -1,0 +1,974 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "username": "nastya",
+      "email": "nastya@example.com",
+      "password": "!",
+      "display_name": "Настя",
+      "bio": "Люблю готувати швидкі сніданки",
+      "avatar_url": "",
+      "is_active": true,
+      "date_joined": "2026-10-01T10:00:00Z",
+      "created_at": "2026-10-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "username": "oleh",
+      "email": "oleh@example.com",
+      "password": "!",
+      "display_name": "Олег",
+      "bio": "Готую прості страви з високим вмістом білка",
+      "avatar_url": "",
+      "is_active": true,
+      "date_joined": "2026-10-01T10:00:00Z",
+      "created_at": "2026-10-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "username": "maria",
+      "email": "maria@example.com",
+      "password": "!",
+      "display_name": "Марія",
+      "bio": "Українська кухня, як у бабусі",
+      "avatar_url": "",
+      "is_active": true,
+      "date_joined": "2026-10-01T10:00:00Z",
+      "created_at": "2026-10-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 4,
+    "fields": {
+      "username": "ivan",
+      "email": "ivan@example.com",
+      "password": "!",
+      "display_name": "Іван",
+      "bio": "",
+      "avatar_url": "",
+      "is_active": true,
+      "date_joined": "2026-10-01T10:00:00Z",
+      "created_at": "2026-10-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "recipes.category",
+    "pk": 1,
+    "fields": {
+      "name": "Сніданки"
+    }
+  },
+  {
+    "model": "recipes.category",
+    "pk": 2,
+    "fields": {
+      "name": "Салати"
+    }
+  },
+  {
+    "model": "recipes.category",
+    "pk": 3,
+    "fields": {
+      "name": "Супи"
+    }
+  },
+  {
+    "model": "recipes.category",
+    "pk": 4,
+    "fields": {
+      "name": "Основні страви"
+    }
+  },
+  {
+    "model": "recipes.category",
+    "pk": 5,
+    "fields": {
+      "name": "Десерти"
+    }
+  },
+  {
+    "model": "recipes.cuisine",
+    "pk": 1,
+    "fields": {
+      "name": "Українська"
+    }
+  },
+  {
+    "model": "recipes.cuisine",
+    "pk": 2,
+    "fields": {
+      "name": "Італійська"
+    }
+  },
+  {
+    "model": "recipes.cuisine",
+    "pk": 3,
+    "fields": {
+      "name": "Азійська"
+    }
+  },
+  {
+    "model": "recipes.cuisine",
+    "pk": 4,
+    "fields": {
+      "name": "Середземноморська"
+    }
+  },
+  {
+    "model": "recipes.cuisine",
+    "pk": 5,
+    "fields": {
+      "name": "Європейська"
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 1,
+    "fields": {
+      "name": "Сир кисломолочний 5%",
+      "kcal_100g": 121,
+      "protein_100g": 17.0,
+      "fat_100g": 5.0,
+      "carbs_100g": 1.8
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 2,
+    "fields": {
+      "name": "Яйце куряче",
+      "kcal_100g": 157,
+      "protein_100g": 12.7,
+      "fat_100g": 11.5,
+      "carbs_100g": 0.7
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 3,
+    "fields": {
+      "name": "Борошно рисове",
+      "kcal_100g": 366,
+      "protein_100g": 6.0,
+      "fat_100g": 1.4,
+      "carbs_100g": 80.1
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 4,
+    "fields": {
+      "name": "Нут варений",
+      "kcal_100g": 164,
+      "protein_100g": 8.9,
+      "fat_100g": 2.6,
+      "carbs_100g": 27.4
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 5,
+    "fields": {
+      "name": "Тунець консервований у власному соку",
+      "kcal_100g": 116,
+      "protein_100g": 25.5,
+      "fat_100g": 0.8,
+      "carbs_100g": 0.0
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 6,
+    "fields": {
+      "name": "Огірок",
+      "kcal_100g": 15,
+      "protein_100g": 0.8,
+      "fat_100g": 0.1,
+      "carbs_100g": 2.8
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 7,
+    "fields": {
+      "name": "Помідор",
+      "kcal_100g": 18,
+      "protein_100g": 0.9,
+      "fat_100g": 0.2,
+      "carbs_100g": 3.9
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 8,
+    "fields": {
+      "name": "Олія оливкова",
+      "kcal_100g": 884,
+      "protein_100g": 0.0,
+      "fat_100g": 100.0,
+      "carbs_100g": 0.0
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 9,
+    "fields": {
+      "name": "Пластівці вівсяні",
+      "kcal_100g": 366,
+      "protein_100g": 12.3,
+      "fat_100g": 6.2,
+      "carbs_100g": 61.8
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 10,
+    "fields": {
+      "name": "Молоко 2,5%",
+      "kcal_100g": 52,
+      "protein_100g": 2.8,
+      "fat_100g": 2.5,
+      "carbs_100g": 4.7
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 11,
+    "fields": {
+      "name": "Банан",
+      "kcal_100g": 89,
+      "protein_100g": 1.1,
+      "fat_100g": 0.3,
+      "carbs_100g": 22.8
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 12,
+    "fields": {
+      "name": "Куряче філе",
+      "kcal_100g": 110,
+      "protein_100g": 23.0,
+      "fat_100g": 1.2,
+      "carbs_100g": 0.0
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 13,
+    "fields": {
+      "name": "Рис білий",
+      "kcal_100g": 344,
+      "protein_100g": 6.7,
+      "fat_100g": 0.7,
+      "carbs_100g": 78.9
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 14,
+    "fields": {
+      "name": "Броколі",
+      "kcal_100g": 34,
+      "protein_100g": 2.8,
+      "fat_100g": 0.4,
+      "carbs_100g": 6.6
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 15,
+    "fields": {
+      "name": "Соєвий соус",
+      "kcal_100g": 53,
+      "protein_100g": 8.1,
+      "fat_100g": 0.6,
+      "carbs_100g": 4.9
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 16,
+    "fields": {
+      "name": "Яловичина",
+      "kcal_100g": 187,
+      "protein_100g": 18.9,
+      "fat_100g": 12.4,
+      "carbs_100g": 0.0
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 17,
+    "fields": {
+      "name": "Буряк",
+      "kcal_100g": 43,
+      "protein_100g": 1.6,
+      "fat_100g": 0.2,
+      "carbs_100g": 9.6
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 18,
+    "fields": {
+      "name": "Капуста білокачанна",
+      "kcal_100g": 25,
+      "protein_100g": 1.3,
+      "fat_100g": 0.1,
+      "carbs_100g": 5.8
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 19,
+    "fields": {
+      "name": "Картопля",
+      "kcal_100g": 77,
+      "protein_100g": 2.0,
+      "fat_100g": 0.1,
+      "carbs_100g": 17.0
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 20,
+    "fields": {
+      "name": "Морква",
+      "kcal_100g": 41,
+      "protein_100g": 0.9,
+      "fat_100g": 0.2,
+      "carbs_100g": 9.6
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 21,
+    "fields": {
+      "name": "Цибуля ріпчаста",
+      "kcal_100g": 40,
+      "protein_100g": 1.1,
+      "fat_100g": 0.1,
+      "carbs_100g": 9.3
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 22,
+    "fields": {
+      "name": "Томатна паста",
+      "kcal_100g": 82,
+      "protein_100g": 4.3,
+      "fat_100g": 0.5,
+      "carbs_100g": 18.9
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 23,
+    "fields": {
+      "name": "Паста з твердих сортів пшениці",
+      "kcal_100g": 350,
+      "protein_100g": 12.5,
+      "fat_100g": 1.5,
+      "carbs_100g": 71.0
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 24,
+    "fields": {
+      "name": "Пармезан",
+      "kcal_100g": 392,
+      "protein_100g": 35.8,
+      "fat_100g": 25.8,
+      "carbs_100g": 3.2
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 25,
+    "fields": {
+      "name": "Часник",
+      "kcal_100g": 149,
+      "protein_100g": 6.4,
+      "fat_100g": 0.5,
+      "carbs_100g": 33.1
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 26,
+    "fields": {
+      "name": "Кіноа",
+      "kcal_100g": 368,
+      "protein_100g": 14.1,
+      "fat_100g": 6.1,
+      "carbs_100g": 64.2
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 1,
+    "fields": {
+      "title": "Сирники в духовці",
+      "description": "Пухкі сирники без смаження, з мінімумом борошна.",
+      "image_url": "",
+      "author": 1,
+      "category": 1,
+      "cuisine": 1,
+      "servings": 4,
+      "cook_time_min": 30,
+      "created_at": "2026-10-11T09:00:00Z",
+      "updated_at": "2026-10-11T09:00:00Z"
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 1,
+    "fields": {
+      "recipe": 1,
+      "ingredient": 1,
+      "amount_g": 500,
+      "note": "1 пачка"
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 2,
+    "fields": {
+      "recipe": 1,
+      "ingredient": 2,
+      "amount_g": 110,
+      "note": "2 шт."
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 3,
+    "fields": {
+      "recipe": 1,
+      "ingredient": 3,
+      "amount_g": 60,
+      "note": "3 ст. л."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 1,
+    "fields": {
+      "recipe": 1,
+      "position": 1,
+      "text": "Розімніть сир виделкою, додайте яйця і борошно, перемішайте."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 2,
+    "fields": {
+      "recipe": 1,
+      "position": 2,
+      "text": "Сформуйте 12 сирників і викладіть на деко з пергаментом."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 3,
+    "fields": {
+      "recipe": 1,
+      "position": 3,
+      "text": "Випікайте 25 хвилин при 180 °C."
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 2,
+    "fields": {
+      "title": "Салат з нутом і тунцем",
+      "description": "Ситний салат за 15 хвилин, багато білка.",
+      "image_url": "",
+      "author": 2,
+      "category": 2,
+      "cuisine": 4,
+      "servings": 2,
+      "cook_time_min": 15,
+      "created_at": "2026-10-12T09:00:00Z",
+      "updated_at": "2026-10-12T09:00:00Z"
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 4,
+    "fields": {
+      "recipe": 2,
+      "ingredient": 4,
+      "amount_g": 300,
+      "note": "1 банка"
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 5,
+    "fields": {
+      "recipe": 2,
+      "ingredient": 5,
+      "amount_g": 150,
+      "note": "1 банка"
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 6,
+    "fields": {
+      "recipe": 2,
+      "ingredient": 6,
+      "amount_g": 150,
+      "note": "1 шт."
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 7,
+    "fields": {
+      "recipe": 2,
+      "ingredient": 7,
+      "amount_g": 150,
+      "note": "1 шт."
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 8,
+    "fields": {
+      "recipe": 2,
+      "ingredient": 8,
+      "amount_g": 15,
+      "note": "1 ст. л."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 4,
+    "fields": {
+      "recipe": 2,
+      "position": 1,
+      "text": "Злийте рідину з нуту й тунця."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 5,
+    "fields": {
+      "recipe": 2,
+      "position": 2,
+      "text": "Наріжте огірок і помідор кубиками."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 6,
+    "fields": {
+      "recipe": 2,
+      "position": 3,
+      "text": "Змішайте все, заправте олією, посоліть і поперчіть."
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 3,
+    "fields": {
+      "title": "Вівсянка з бананом",
+      "description": "Класичний сніданок на молоці.",
+      "image_url": "",
+      "author": 1,
+      "category": 1,
+      "cuisine": 5,
+      "servings": 1,
+      "cook_time_min": 10,
+      "created_at": "2026-10-13T09:00:00Z",
+      "updated_at": "2026-10-13T09:00:00Z"
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 9,
+    "fields": {
+      "recipe": 3,
+      "ingredient": 9,
+      "amount_g": 50,
+      "note": "5 ст. л."
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 10,
+    "fields": {
+      "recipe": 3,
+      "ingredient": 10,
+      "amount_g": 200,
+      "note": "1 склянка"
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 11,
+    "fields": {
+      "recipe": 3,
+      "ingredient": 11,
+      "amount_g": 100,
+      "note": "1 шт."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 7,
+    "fields": {
+      "recipe": 3,
+      "position": 1,
+      "text": "Доведіть молоко до кипіння."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 8,
+    "fields": {
+      "recipe": 3,
+      "position": 2,
+      "text": "Всипте пластівці й варіть 5 хвилин, помішуючи."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 9,
+    "fields": {
+      "recipe": 3,
+      "position": 3,
+      "text": "Додайте нарізаний банан."
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 4,
+    "fields": {
+      "title": "Курка з рисом і броколі",
+      "description": "Збалансована страва для обіду.",
+      "image_url": "",
+      "author": 2,
+      "category": 4,
+      "cuisine": 3,
+      "servings": 2,
+      "cook_time_min": 35,
+      "created_at": "2026-10-14T09:00:00Z",
+      "updated_at": "2026-10-14T09:00:00Z"
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 12,
+    "fields": {
+      "recipe": 4,
+      "ingredient": 12,
+      "amount_g": 300,
+      "note": ""
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 13,
+    "fields": {
+      "recipe": 4,
+      "ingredient": 13,
+      "amount_g": 150,
+      "note": "сухий"
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 14,
+    "fields": {
+      "recipe": 4,
+      "ingredient": 14,
+      "amount_g": 200,
+      "note": ""
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 15,
+    "fields": {
+      "recipe": 4,
+      "ingredient": 15,
+      "amount_g": 30,
+      "note": "2 ст. л."
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 16,
+    "fields": {
+      "recipe": 4,
+      "ingredient": 8,
+      "amount_g": 10,
+      "note": "2 ч. л."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 10,
+    "fields": {
+      "recipe": 4,
+      "position": 1,
+      "text": "Відваріть рис."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 11,
+    "fields": {
+      "recipe": 4,
+      "position": 2,
+      "text": "Наріжте філе й обсмажте на олії 7–8 хвилин."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 12,
+    "fields": {
+      "recipe": 4,
+      "position": 3,
+      "text": "Додайте броколі й соєвий соус, тушкуйте 5 хвилин під кришкою."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 13,
+    "fields": {
+      "recipe": 4,
+      "position": 4,
+      "text": "Подавайте з рисом."
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 5,
+    "fields": {
+      "title": "Борщ український",
+      "description": "Червоний борщ на яловичині.",
+      "image_url": "",
+      "author": 3,
+      "category": 3,
+      "cuisine": 1,
+      "servings": 6,
+      "cook_time_min": 90,
+      "created_at": "2026-10-15T09:00:00Z",
+      "updated_at": "2026-10-15T09:00:00Z"
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 17,
+    "fields": {
+      "recipe": 5,
+      "ingredient": 16,
+      "amount_g": 400,
+      "note": ""
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 18,
+    "fields": {
+      "recipe": 5,
+      "ingredient": 17,
+      "amount_g": 300,
+      "note": "2 шт."
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 19,
+    "fields": {
+      "recipe": 5,
+      "ingredient": 18,
+      "amount_g": 300,
+      "note": ""
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 20,
+    "fields": {
+      "recipe": 5,
+      "ingredient": 19,
+      "amount_g": 300,
+      "note": "3 шт."
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 21,
+    "fields": {
+      "recipe": 5,
+      "ingredient": 20,
+      "amount_g": 100,
+      "note": "1 шт."
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 22,
+    "fields": {
+      "recipe": 5,
+      "ingredient": 21,
+      "amount_g": 100,
+      "note": "1 шт."
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 23,
+    "fields": {
+      "recipe": 5,
+      "ingredient": 22,
+      "amount_g": 50,
+      "note": "2 ст. л."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 14,
+    "fields": {
+      "recipe": 5,
+      "position": 1,
+      "text": "Зваріть бульйон з яловичини (1 год)."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 15,
+    "fields": {
+      "recipe": 5,
+      "position": 2,
+      "text": "Додайте картоплю й капусту."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 16,
+    "fields": {
+      "recipe": 5,
+      "position": 3,
+      "text": "Обсмажте цибулю, моркву й буряк з томатною пастою."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 17,
+    "fields": {
+      "recipe": 5,
+      "position": 4,
+      "text": "Додайте засмажку в бульйон і варіть ще 10 хвилин."
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 6,
+    "fields": {
+      "title": "Паста з томатним соусом",
+      "description": "Проста італійська паста.",
+      "image_url": "",
+      "author": 3,
+      "category": 4,
+      "cuisine": 2,
+      "servings": 2,
+      "cook_time_min": 20,
+      "created_at": "2026-10-16T09:00:00Z",
+      "updated_at": "2026-10-16T09:00:00Z"
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 24,
+    "fields": {
+      "recipe": 6,
+      "ingredient": 23,
+      "amount_g": 160,
+      "note": ""
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 25,
+    "fields": {
+      "recipe": 6,
+      "ingredient": 7,
+      "amount_g": 300,
+      "note": "3 шт."
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 26,
+    "fields": {
+      "recipe": 6,
+      "ingredient": 8,
+      "amount_g": 15,
+      "note": "1 ст. л."
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 27,
+    "fields": {
+      "recipe": 6,
+      "ingredient": 24,
+      "amount_g": 30,
+      "note": ""
+    }
+  },
+  {
+    "model": "recipes.recipeingredient",
+    "pk": 28,
+    "fields": {
+      "recipe": 6,
+      "ingredient": 25,
+      "amount_g": 10,
+      "note": "2 зубчики"
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 18,
+    "fields": {
+      "recipe": 6,
+      "position": 1,
+      "text": "Відваріть пасту al dente."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 19,
+    "fields": {
+      "recipe": 6,
+      "position": 2,
+      "text": "Обсмажте часник на олії, додайте нарізані помідори, тушкуйте 10 хвилин."
+    }
+  },
+  {
+    "model": "recipes.recipestep",
+    "pk": 20,
+    "fields": {
+      "recipe": 6,
+      "position": 3,
+      "text": "Змішайте пасту з соусом і посипте пармезаном."
+    }
+  }
+]
