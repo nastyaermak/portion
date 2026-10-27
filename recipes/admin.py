@@ -1,6 +1,13 @@
 from django.contrib import admin
 
-from .models import Category, Cuisine, Ingredient, Recipe, RecipeIngredient, RecipeStep
+from .models import (
+    Category,
+    Cuisine,
+    Ingredient,
+    Recipe,
+    RecipeIngredient,
+    RecipeStep,
+)
 
 
 class RecipeIngredientInline(admin.TabularInline):
@@ -15,7 +22,7 @@ class RecipeStepInline(admin.TabularInline):
 
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ['title', 'author', 'category', 'cuisine', 'servings']
+    list_display = ["title", "author", "category", "cuisine", "servings"]
     inlines = [RecipeIngredientInline, RecipeStepInline]
 
 
