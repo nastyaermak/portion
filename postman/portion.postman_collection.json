@@ -1,0 +1,4259 @@
+{
+  "info": {
+    "name": "Порція API",
+    "description": "CRUD для категорій, кухонь, інгредієнтів і рецептів, перегляд авторів. Запити в папках ідуть по порядку: створення зберігає id у змінну колекції, а наступні запити (редагування, видалення) її використовують. Перед запуском завантажте демо-дані: python manage.py loaddata demo.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Категорії",
+      "item": [
+        {
+          "name": "Список категорій",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "categories"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/categories",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Сніданки\",\n    \"recipes_count\": 2\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Салати\",\n    \"recipes_count\": 1\n  },\n  {\n    \"id\": 3,\n    \"name\": \"Супи\",\n    \"recipes_count\": 1\n  },\n  {\n    \"id\": 4,\n    \"name\": \"Основні страви\",\n    \"recipes_count\": 2\n  },\n  {\n    \"id\": 5,\n    \"name\": \"Десерти\",\n    \"recipes_count\": 0\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Одна категорія",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/categories/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "categories",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/categories/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Сніданки\",\n  \"recipes_count\": 2\n}"
+            }
+          ]
+        },
+        {
+          "name": "Додати категорію",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "pm.collectionVariables.set(\"category_id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "categories"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Напої\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/categories",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Напої\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6,\n  \"name\": \"Напої\",\n  \"recipes_count\": 0\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: категорія з такою назвою вже є (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 409\", function () {",
+                  "    pm.response.to.have.status(409);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "categories"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"сніданки\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "409 Conflict",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/categories",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"сніданки\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"conflict\",\n  \"message\": \"Категорія з назвою «сніданки» уже є\",\n  \"fields\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: порожня назва (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "categories"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/categories",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"validation_error\",\n  \"message\": \"Перевірте введені дані\",\n  \"fields\": {\n    \"name\": \"Це поле не може бути порожнім.\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Перейменувати категорію",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/categories/{{category_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "categories",
+                "{{category_id}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Напої та смузі\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/categories/{{category_id}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "{{category_id}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Напої та смузі\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6,\n  \"name\": \"Напої та смузі\",\n  \"recipes_count\": 0\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: категорії немає (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/categories/999",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "categories",
+                "999"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/categories/999",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "999"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_found\",\n  \"message\": \"Категорії з id 999 немає\",\n  \"fields\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: видалити категорію з рецептами (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 409\", function () {",
+                  "    pm.response.to.have.status(409);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/categories/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "categories",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "409 Conflict",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/categories/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"conflict\",\n  \"message\": \"Неможливо видалити категорію «Сніданки», бо в ній 2 рецепти. Спершу перенесіть рецепти в іншу категорію або видаліть їх.\",\n  \"fields\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Видалити категорію",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 204\", function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/categories/{{category_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "categories",
+                "{{category_id}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "204 No Content",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/categories/{{category_id}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "{{category_id}}"
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "body": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Кухні",
+      "item": [
+        {
+          "name": "Список кухонь",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/cuisines",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cuisines"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/cuisines",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "cuisines"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Українська\",\n    \"recipes_count\": 2\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Італійська\",\n    \"recipes_count\": 1\n  },\n  {\n    \"id\": 3,\n    \"name\": \"Азійська\",\n    \"recipes_count\": 1\n  },\n  {\n    \"id\": 4,\n    \"name\": \"Середземноморська\",\n    \"recipes_count\": 1\n  },\n  {\n    \"id\": 5,\n    \"name\": \"Європейська\",\n    \"recipes_count\": 1\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Одна кухня",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/cuisines/2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cuisines",
+                "2"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/cuisines/2",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "cuisines",
+                    "2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 2,\n  \"name\": \"Італійська\",\n  \"recipes_count\": 1\n}"
+            }
+          ]
+        },
+        {
+          "name": "Додати кухню",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "pm.collectionVariables.set(\"cuisine_id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/cuisines",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cuisines"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Грузинська\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/cuisines",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "cuisines"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Грузинська\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6,\n  \"name\": \"Грузинська\",\n  \"recipes_count\": 0\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: кухня з такою назвою вже є (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 409\", function () {",
+                  "    pm.response.to.have.status(409);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/cuisines",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cuisines"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Італійська\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "409 Conflict",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/cuisines",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "cuisines"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Італійська\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"conflict\",\n  \"message\": \"Кухня з назвою «Італійська» уже є\",\n  \"fields\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Перейменувати кухню",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/cuisines/{{cuisine_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cuisines",
+                "{{cuisine_id}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Кавказька\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/cuisines/{{cuisine_id}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "cuisines",
+                    "{{cuisine_id}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Кавказька\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6,\n  \"name\": \"Кавказька\",\n  \"recipes_count\": 0\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: перейменувати неіснуючу кухню (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/cuisines/999",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cuisines",
+                "999"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Японська\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/cuisines/999",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "cuisines",
+                    "999"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Японська\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_found\",\n  \"message\": \"Кухні з id 999 немає\",\n  \"fields\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: видалити кухню з рецептами (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 409\", function () {",
+                  "    pm.response.to.have.status(409);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/cuisines/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cuisines",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "409 Conflict",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/cuisines/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "cuisines",
+                    "1"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"conflict\",\n  \"message\": \"Неможливо видалити кухню «Українська», бо до неї належать 2 рецепти. Спершу перенесіть рецепти в іншу кухню або видаліть їх.\",\n  \"fields\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Видалити кухню",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 204\", function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/cuisines/{{cuisine_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cuisines",
+                "{{cuisine_id}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "204 No Content",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/cuisines/{{cuisine_id}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "cuisines",
+                    "{{cuisine_id}}"
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "body": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Інгредієнти",
+      "item": [
+        {
+          "name": "Список інгредієнтів",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/ingredients?page=1&page_size=5",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "ingredients"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "page_size",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/ingredients?page=1&page_size=5",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "ingredients"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "5"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 26,\n  \"page\": 1,\n  \"page_size\": 5,\n  \"results\": [\n    {\n      \"id\": 1,\n      \"name\": \"Сир кисломолочний 5%\",\n      \"per_100g\": {\n        \"kcal\": 121.0,\n        \"protein\": 17.0,\n        \"fat\": 5.0,\n        \"carbs\": 1.8\n      },\n      \"recipes_count\": 1\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Яйце куряче\",\n      \"per_100g\": {\n        \"kcal\": 157.0,\n        \"protein\": 12.7,\n        \"fat\": 11.5,\n        \"carbs\": 0.7\n      },\n      \"recipes_count\": 1\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Борошно рисове\",\n      \"per_100g\": {\n        \"kcal\": 366.0,\n        \"protein\": 6.0,\n        \"fat\": 1.4,\n        \"carbs\": 80.1\n      },\n      \"recipes_count\": 1\n    },\n    {\n      \"id\": 4,\n      \"name\": \"Нут варений\",\n      \"per_100g\": {\n        \"kcal\": 164.0,\n        \"protein\": 8.9,\n        \"fat\": 2.6,\n        \"carbs\": 27.4\n      },\n      \"recipes_count\": 1\n    },\n    {\n      \"id\": 5,\n      \"name\": \"Тунець консервований у власному соку\",\n      \"per_100g\": {\n        \"kcal\": 116.0,\n        \"protein\": 25.5,\n        \"fat\": 0.8,\n        \"carbs\": 0.0\n      },\n      \"recipes_count\": 1\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Пошук інгредієнта",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/ingredients?search=олія",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "ingredients"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "олія"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/ingredients?search=олія",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "ingredients"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "олія"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 1,\n  \"page\": 1,\n  \"page_size\": 20,\n  \"results\": [\n    {\n      \"id\": 8,\n      \"name\": \"Олія оливкова\",\n      \"per_100g\": {\n        \"kcal\": 884.0,\n        \"protein\": 0.0,\n        \"fat\": 100.0,\n        \"carbs\": 0.0\n      },\n      \"recipes_count\": 3\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Один інгредієнт",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/ingredients/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "ingredients",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/ingredients/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "ingredients",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Сир кисломолочний 5%\",\n  \"per_100g\": {\n    \"kcal\": 121.0,\n    \"protein\": 17.0,\n    \"fat\": 5.0,\n    \"carbs\": 1.8\n  },\n  \"recipes_count\": 1\n}"
+            }
+          ]
+        },
+        {
+          "name": "Додати інгредієнт",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "pm.collectionVariables.set(\"ingredient_id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/ingredients",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "ingredients"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Авокадо\",\n  \"per_100g\": {\n    \"kcal\": 160,\n    \"protein\": 2.0,\n    \"fat\": 14.7,\n    \"carbs\": 8.5\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/ingredients",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "ingredients"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Авокадо\",\n  \"per_100g\": {\n    \"kcal\": 160,\n    \"protein\": 2.0,\n    \"fat\": 14.7,\n    \"carbs\": 8.5\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 27,\n  \"name\": \"Авокадо\",\n  \"per_100g\": {\n    \"kcal\": 160.0,\n    \"protein\": 2.0,\n    \"fat\": 14.7,\n    \"carbs\": 8.5\n  },\n  \"recipes_count\": 0\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: інгредієнт з такою назвою вже є (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 409\", function () {",
+                  "    pm.response.to.have.status(409);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/ingredients",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "ingredients"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"банан\",\n  \"per_100g\": {\n    \"kcal\": 89,\n    \"protein\": 1.1,\n    \"fat\": 0.3,\n    \"carbs\": 22.8\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "409 Conflict",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/ingredients",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "ingredients"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"банан\",\n  \"per_100g\": {\n    \"kcal\": 89,\n    \"protein\": 1.1,\n    \"fat\": 0.3,\n    \"carbs\": 22.8\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"conflict\",\n  \"message\": \"Інгредієнт з назвою «банан» уже є\",\n  \"fields\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: від'ємні значення та не всі поля (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/ingredients",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "ingredients"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Гречка\",\n  \"per_100g\": {\n    \"kcal\": -10,\n    \"protein\": 12.6\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/ingredients",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "ingredients"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Гречка\",\n  \"per_100g\": {\n    \"kcal\": -10,\n    \"protein\": 12.6\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"validation_error\",\n  \"message\": \"Перевірте введені дані\",\n  \"fields\": {\n    \"per_100g.kcal\": \"Переконайтесь, що значення більше або дорівнює 0.\",\n    \"per_100g.fat\": \"Це поле обов'язкове.\",\n    \"per_100g.carbs\": \"Це поле обов'язкове.\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: Б+Ж+В більше 100 г (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/ingredients",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "ingredients"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Сало\",\n  \"per_100g\": {\n    \"kcal\": 797,\n    \"protein\": 20,\n    \"fat\": 89,\n    \"carbs\": 0\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/ingredients",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "ingredients"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Сало\",\n  \"per_100g\": {\n    \"kcal\": 797,\n    \"protein\": 20,\n    \"fat\": 89,\n    \"carbs\": 0\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"validation_error\",\n  \"message\": \"Перевірте введені дані\",\n  \"fields\": {\n    \"per_100g\": \"Білки, жири й вуглеводи разом — 109.0 г, а це більше, ніж 100 г продукту\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Змінити КБЖВ інгредієнта (частково)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/ingredients/{{ingredient_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "ingredients",
+                "{{ingredient_id}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"per_100g\": {\n    \"kcal\": 165\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/ingredients/{{ingredient_id}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "ingredients",
+                    "{{ingredient_id}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"per_100g\": {\n    \"kcal\": 165\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 27,\n  \"name\": \"Авокадо\",\n  \"per_100g\": {\n    \"kcal\": 165.0,\n    \"protein\": 2.0,\n    \"fat\": 14.7,\n    \"carbs\": 8.5\n  },\n  \"recipes_count\": 0\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: інгредієнта немає (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/ingredients/999",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "ingredients",
+                "999"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/ingredients/999",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "ingredients",
+                    "999"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_found\",\n  \"message\": \"Інгредієнта з id 999 немає\",\n  \"fields\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: видалити інгредієнт, що є в рецептах (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 409\", function () {",
+                  "    pm.response.to.have.status(409);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/ingredients/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "ingredients",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "409 Conflict",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/ingredients/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "ingredients",
+                    "1"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"conflict\",\n  \"message\": \"Неможливо видалити інгредієнт «Сир кисломолочний 5%», бо він використовується в 1 рецепті. Спершу приберіть його з рецептів.\",\n  \"fields\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Видалити інгредієнт",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 204\", function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/ingredients/{{ingredient_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "ingredients",
+                "{{ingredient_id}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "204 No Content",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/ingredients/{{ingredient_id}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "ingredients",
+                    "{{ingredient_id}}"
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "body": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Рецепти",
+      "item": [
+        {
+          "name": "Каталог рецептів",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 6,\n  \"page\": 1,\n  \"page_size\": 20,\n  \"results\": [\n    {\n      \"id\": 6,\n      \"title\": \"Паста з томатним соусом\",\n      \"image_url\": \"\",\n      \"cook_time_min\": 20,\n      \"servings\": 2,\n      \"category\": {\n        \"id\": 4,\n        \"name\": \"Основні страви\"\n      },\n      \"cuisine\": {\n        \"id\": 2,\n        \"name\": \"Італійська\"\n      },\n      \"author\": {\n        \"id\": 3,\n        \"display_name\": \"Марія\"\n      },\n      \"nutrition_per_serving\": {\n        \"kcal\": 440,\n        \"protein\": 17.0,\n        \"fat\": 12.9,\n        \"carbs\": 64.8\n      }\n    },\n    {\n      \"id\": 5,\n      \"title\": \"Борщ український\",\n      \"image_url\": \"\",\n      \"cook_time_min\": 90,\n      \"servings\": 6,\n      \"category\": {\n        \"id\": 3,\n        \"name\": \"Супи\"\n      },\n      \"cuisine\": {\n        \"id\": 1,\n        \"name\": \"Українська\"\n      },\n      \"author\": {\n        \"id\": 3,\n        \"display_name\": \"Марія\"\n      },\n      \"nutrition_per_serving\": {\n        \"kcal\": 218,\n        \"protein\": 15.7,\n        \"fat\": 8.6,\n        \"carbs\": 20.9\n      }\n    },\n    {\n      \"id\": 4,\n      \"title\": \"Курка з рисом і броколі\",\n      \"image_url\": \"\",\n      \"cook_time_min\": 35,\n      \"servings\": 2,\n      \"category\": {\n        \"id\": 4,\n        \"name\": \"Основні страви\"\n      },\n      \"cuisine\": {\n        \"id\": 3,\n        \"name\": \"Азійська\"\n      },\n      \"author\": {\n        \"id\": 2,\n        \"display_name\": \"Олег\"\n      },\n      \"nutrition_per_serving\": {\n        \"kcal\": 509,\n        \"protein\": 43.5,\n        \"fat\": 7.8,\n        \"carbs\": 66.5\n      }\n    },\n    {\n      \"id\": 3,\n      \"title\": \"Вівсянка з бананом\",\n      \"image_url\": \"\",\n      \"cook_time_min\": 10,\n      \"servings\": 1,\n      \"category\": {\n        \"id\": 1,\n        \"name\": \"Сніданки\"\n      },\n      \"cuisine\": {\n        \"id\": 5,\n        \"name\": \"Європейська\"\n      },\n      \"author\": {\n        \"id\": 1,\n        \"display_name\": \"Настя\"\n      },\n      \"nutrition_per_serving\": {\n        \"kcal\": 376,\n        \"protein\": 12.8,\n        \"fat\": 8.4,\n        \"carbs\": 63.1\n      }\n    },\n    {\n      \"id\": 2,\n      \"title\": \"Салат з нутом і тунцем\",\n      \"image_url\": \"\",\n      \"cook_time_min\": 15,\n      \"servings\": 2,\n      \"category\": {\n        \"id\": 2,\n        \"name\": \"Салати\"\n      },\n      \"cuisine\": {\n        \"id\": 4,\n        \"name\": \"Середземноморська\"\n      },\n      \"author\": {\n        \"id\": 2,\n        \"display_name\": \"Олег\"\n      },\n      \"nutrition_per_serving\": {\n        \"kcal\": 424,\n        \"protein\": 33.8,\n        \"fat\": 12.2,\n        \"carbs\": 46.1\n      }\n    },\n    {\n      \"id\": 1,\n      \"title\": \"Сирники в духовці\",\n      \"image_url\": \"\",\n      \"cook_time_min\": 30,\n      \"servings\": 4,\n      \"category\": {\n        \"id\": 1,\n        \"name\": \"Сніданки\"\n      },\n      \"cuisine\": {\n        \"id\": 1,\n        \"name\": \"Українська\"\n      },\n      \"author\": {\n        \"id\": 1,\n        \"display_name\": \"Настя\"\n      },\n      \"nutrition_per_serving\": {\n        \"kcal\": 249,\n        \"protein\": 25.6,\n        \"fat\": 9.6,\n        \"carbs\": 14.5\n      }\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Каталог: пошук за назвою",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes?search=сирники",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "сирники"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes?search=сирники",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "сирники"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 1,\n  \"page\": 1,\n  \"page_size\": 20,\n  \"results\": [\n    {\n      \"id\": 1,\n      \"title\": \"Сирники в духовці\",\n      \"image_url\": \"\",\n      \"cook_time_min\": 30,\n      \"servings\": 4,\n      \"category\": {\n        \"id\": 1,\n        \"name\": \"Сніданки\"\n      },\n      \"cuisine\": {\n        \"id\": 1,\n        \"name\": \"Українська\"\n      },\n      \"author\": {\n        \"id\": 1,\n        \"display_name\": \"Настя\"\n      },\n      \"nutrition_per_serving\": {\n        \"kcal\": 249,\n        \"protein\": 25.6,\n        \"fat\": 9.6,\n        \"carbs\": 14.5\n      }\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Каталог: рецепти з оливковою олією і помідором",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes?ingredient=8&ingredient=7",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes"
+              ],
+              "query": [
+                {
+                  "key": "ingredient",
+                  "value": "8"
+                },
+                {
+                  "key": "ingredient",
+                  "value": "7"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes?ingredient=8&ingredient=7",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes"
+                  ],
+                  "query": [
+                    {
+                      "key": "ingredient",
+                      "value": "8"
+                    },
+                    {
+                      "key": "ingredient",
+                      "value": "7"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 2,\n  \"page\": 1,\n  \"page_size\": 20,\n  \"results\": [\n    {\n      \"id\": 6,\n      \"title\": \"Паста з томатним соусом\",\n      \"image_url\": \"\",\n      \"cook_time_min\": 20,\n      \"servings\": 2,\n      \"category\": {\n        \"id\": 4,\n        \"name\": \"Основні страви\"\n      },\n      \"cuisine\": {\n        \"id\": 2,\n        \"name\": \"Італійська\"\n      },\n      \"author\": {\n        \"id\": 3,\n        \"display_name\": \"Марія\"\n      },\n      \"nutrition_per_serving\": {\n        \"kcal\": 440,\n        \"protein\": 17.0,\n        \"fat\": 12.9,\n        \"carbs\": 64.8\n      }\n    },\n    {\n      \"id\": 2,\n      \"title\": \"Салат з нутом і тунцем\",\n      \"image_url\": \"\",\n      \"cook_time_min\": 15,\n      \"servings\": 2,\n      \"category\": {\n        \"id\": 2,\n        \"name\": \"Салати\"\n      },\n      \"cuisine\": {\n        \"id\": 4,\n        \"name\": \"Середземноморська\"\n      },\n      \"author\": {\n        \"id\": 2,\n        \"display_name\": \"Олег\"\n      },\n      \"nutrition_per_serving\": {\n        \"kcal\": 424,\n        \"protein\": 33.8,\n        \"fat\": 12.2,\n        \"carbs\": 46.1\n      }\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Каталог: до 400 ккал, від найменш калорійних",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes?max_kcal=400&sort=kcal",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes"
+              ],
+              "query": [
+                {
+                  "key": "max_kcal",
+                  "value": "400"
+                },
+                {
+                  "key": "sort",
+                  "value": "kcal"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes?max_kcal=400&sort=kcal",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes"
+                  ],
+                  "query": [
+                    {
+                      "key": "max_kcal",
+                      "value": "400"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "kcal"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 3,\n  \"page\": 1,\n  \"page_size\": 20,\n  \"results\": [\n    {\n      \"id\": 5,\n      \"title\": \"Борщ український\",\n      \"image_url\": \"\",\n      \"cook_time_min\": 90,\n      \"servings\": 6,\n      \"category\": {\n        \"id\": 3,\n        \"name\": \"Супи\"\n      },\n      \"cuisine\": {\n        \"id\": 1,\n        \"name\": \"Українська\"\n      },\n      \"author\": {\n        \"id\": 3,\n        \"display_name\": \"Марія\"\n      },\n      \"nutrition_per_serving\": {\n        \"kcal\": 218,\n        \"protein\": 15.7,\n        \"fat\": 8.6,\n        \"carbs\": 20.9\n      }\n    },\n    {\n      \"id\": 1,\n      \"title\": \"Сирники в духовці\",\n      \"image_url\": \"\",\n      \"cook_time_min\": 30,\n      \"servings\": 4,\n      \"category\": {\n        \"id\": 1,\n        \"name\": \"Сніданки\"\n      },\n      \"cuisine\": {\n        \"id\": 1,\n        \"name\": \"Українська\"\n      },\n      \"author\": {\n        \"id\": 1,\n        \"display_name\": \"Настя\"\n      },\n      \"nutrition_per_serving\": {\n        \"kcal\": 249,\n        \"protein\": 25.6,\n        \"fat\": 9.6,\n        \"carbs\": 14.5\n      }\n    },\n    {\n      \"id\": 3,\n      \"title\": \"Вівсянка з бананом\",\n      \"image_url\": \"\",\n      \"cook_time_min\": 10,\n      \"servings\": 1,\n      \"category\": {\n        \"id\": 1,\n        \"name\": \"Сніданки\"\n      },\n      \"cuisine\": {\n        \"id\": 5,\n        \"name\": \"Європейська\"\n      },\n      \"author\": {\n        \"id\": 1,\n        \"display_name\": \"Настя\"\n      },\n      \"nutrition_per_serving\": {\n        \"kcal\": 376,\n        \"protein\": 12.8,\n        \"fat\": 8.4,\n        \"carbs\": 63.1\n      }\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Каталог: сніданки, від найбільшої кількості білків",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes?category=1&sort=-protein",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "1"
+                },
+                {
+                  "key": "sort",
+                  "value": "-protein"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes?category=1&sort=-protein",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes"
+                  ],
+                  "query": [
+                    {
+                      "key": "category",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-protein"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 2,\n  \"page\": 1,\n  \"page_size\": 20,\n  \"results\": [\n    {\n      \"id\": 1,\n      \"title\": \"Сирники в духовці\",\n      \"image_url\": \"\",\n      \"cook_time_min\": 30,\n      \"servings\": 4,\n      \"category\": {\n        \"id\": 1,\n        \"name\": \"Сніданки\"\n      },\n      \"cuisine\": {\n        \"id\": 1,\n        \"name\": \"Українська\"\n      },\n      \"author\": {\n        \"id\": 1,\n        \"display_name\": \"Настя\"\n      },\n      \"nutrition_per_serving\": {\n        \"kcal\": 249,\n        \"protein\": 25.6,\n        \"fat\": 9.6,\n        \"carbs\": 14.5\n      }\n    },\n    {\n      \"id\": 3,\n      \"title\": \"Вівсянка з бананом\",\n      \"image_url\": \"\",\n      \"cook_time_min\": 10,\n      \"servings\": 1,\n      \"category\": {\n        \"id\": 1,\n        \"name\": \"Сніданки\"\n      },\n      \"cuisine\": {\n        \"id\": 5,\n        \"name\": \"Європейська\"\n      },\n      \"author\": {\n        \"id\": 1,\n        \"display_name\": \"Настя\"\n      },\n      \"nutrition_per_serving\": {\n        \"kcal\": 376,\n        \"protein\": 12.8,\n        \"fat\": 8.4,\n        \"carbs\": 63.1\n      }\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: невідоме сортування (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes?sort=price",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes"
+              ],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "price"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes?sort=price",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "price"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"validation_error\",\n  \"message\": \"Перевірте введені дані\",\n  \"fields\": {\n    \"sort\": \"Невідоме сортування «price». Можна: kcal, -kcal, -protein, time, -created_at\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: нечисловий фільтр (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes?max_kcal=багато",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes"
+              ],
+              "query": [
+                {
+                  "key": "max_kcal",
+                  "value": "багато"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes?max_kcal=багато",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes"
+                  ],
+                  "query": [
+                    {
+                      "key": "max_kcal",
+                      "value": "багато"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"validation_error\",\n  \"message\": \"Перевірте введені дані\",\n  \"fields\": {\n    \"max_kcal\": \"Має бути числом\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Сторінка рецепта",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"title\": \"Сирники в духовці\",\n  \"description\": \"Пухкі сирники без смаження, з мінімумом борошна.\",\n  \"image_url\": \"\",\n  \"cook_time_min\": 30,\n  \"servings\": 4,\n  \"category\": {\n    \"id\": 1,\n    \"name\": \"Сніданки\"\n  },\n  \"cuisine\": {\n    \"id\": 1,\n    \"name\": \"Українська\"\n  },\n  \"author\": {\n    \"id\": 1,\n    \"display_name\": \"Настя\"\n  },\n  \"ingredients\": [\n    {\n      \"ingredient\": {\n        \"id\": 1,\n        \"name\": \"Сир кисломолочний 5%\"\n      },\n      \"amount_g\": 500.0,\n      \"note\": \"1 пачка\"\n    },\n    {\n      \"ingredient\": {\n        \"id\": 2,\n        \"name\": \"Яйце куряче\"\n      },\n      \"amount_g\": 110.0,\n      \"note\": \"2 шт.\"\n    },\n    {\n      \"ingredient\": {\n        \"id\": 3,\n        \"name\": \"Борошно рисове\"\n      },\n      \"amount_g\": 60.0,\n      \"note\": \"3 ст. л.\"\n    }\n  ],\n  \"steps\": [\n    \"Розімніть сир виделкою, додайте яйця і борошно, перемішайте.\",\n    \"Сформуйте 12 сирників і викладіть на деко з пергаментом.\",\n    \"Випікайте 25 хвилин при 180 °C.\"\n  ],\n  \"nutrition_per_serving\": {\n    \"kcal\": 249,\n    \"protein\": 25.6,\n    \"fat\": 9.6,\n    \"carbs\": 14.5\n  },\n  \"created_at\": \"2026-10-11T12:00:00+03:00\",\n  \"updated_at\": \"2026-10-11T12:00:00+03:00\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: рецепта немає (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes/999",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes",
+                "999"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes/999",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes",
+                    "999"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_found\",\n  \"message\": \"Рецепта з id 999 немає\",\n  \"fields\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Додати рецепт",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "pm.collectionVariables.set(\"recipe_id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Омлет з броколі\",\n  \"description\": \"Швидкий білковий сніданок.\",\n  \"image_url\": \"\",\n  \"cook_time_min\": 15,\n  \"servings\": 1,\n  \"author_id\": 1,\n  \"category_id\": 1,\n  \"cuisine_id\": 5,\n  \"ingredients\": [\n    {\n      \"ingredient_id\": 2,\n      \"amount_g\": 165,\n      \"note\": \"3 шт.\"\n    },\n    {\n      \"ingredient_id\": 14,\n      \"amount_g\": 100,\n      \"note\": \"\"\n    },\n    {\n      \"ingredient_id\": 10,\n      \"amount_g\": 50,\n      \"note\": \"1/4 склянки\"\n    }\n  ],\n  \"steps\": [\n    \"Збийте яйця з молоком.\",\n    \"Додайте броколі й залийте яєчною сумішшю.\",\n    \"Готуйте під кришкою 7 хвилин на слабкому вогні.\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Омлет з броколі\",\n  \"description\": \"Швидкий білковий сніданок.\",\n  \"image_url\": \"\",\n  \"cook_time_min\": 15,\n  \"servings\": 1,\n  \"author_id\": 1,\n  \"category_id\": 1,\n  \"cuisine_id\": 5,\n  \"ingredients\": [\n    {\n      \"ingredient_id\": 2,\n      \"amount_g\": 165,\n      \"note\": \"3 шт.\"\n    },\n    {\n      \"ingredient_id\": 14,\n      \"amount_g\": 100,\n      \"note\": \"\"\n    },\n    {\n      \"ingredient_id\": 10,\n      \"amount_g\": 50,\n      \"note\": \"1/4 склянки\"\n    }\n  ],\n  \"steps\": [\n    \"Збийте яйця з молоком.\",\n    \"Додайте броколі й залийте яєчною сумішшю.\",\n    \"Готуйте під кришкою 7 хвилин на слабкому вогні.\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 7,\n  \"title\": \"Омлет з броколі\",\n  \"description\": \"Швидкий білковий сніданок.\",\n  \"image_url\": \"\",\n  \"cook_time_min\": 15,\n  \"servings\": 1,\n  \"category\": {\n    \"id\": 1,\n    \"name\": \"Сніданки\"\n  },\n  \"cuisine\": {\n    \"id\": 5,\n    \"name\": \"Європейська\"\n  },\n  \"author\": {\n    \"id\": 1,\n    \"display_name\": \"Настя\"\n  },\n  \"ingredients\": [\n    {\n      \"ingredient\": {\n        \"id\": 2,\n        \"name\": \"Яйце куряче\"\n      },\n      \"amount_g\": 165.0,\n      \"note\": \"3 шт.\"\n    },\n    {\n      \"ingredient\": {\n        \"id\": 14,\n        \"name\": \"Броколі\"\n      },\n      \"amount_g\": 100.0,\n      \"note\": \"\"\n    },\n    {\n      \"ingredient\": {\n        \"id\": 10,\n        \"name\": \"Молоко 2,5%\"\n      },\n      \"amount_g\": 50.0,\n      \"note\": \"1/4 склянки\"\n    }\n  ],\n  \"steps\": [\n    \"Збийте яйця з молоком.\",\n    \"Додайте броколі й залийте яєчною сумішшю.\",\n    \"Готуйте під кришкою 7 хвилин на слабкому вогні.\"\n  ],\n  \"nutrition_per_serving\": {\n    \"kcal\": 319,\n    \"protein\": 25.2,\n    \"fat\": 20.6,\n    \"carbs\": 10.1\n  },\n  \"created_at\": \"2026-10-27T10:50:17.992701+02:00\",\n  \"updated_at\": \"2026-10-27T10:50:17.992724+02:00\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: невалідний рецепт (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"\",\n  \"cook_time_min\": 10,\n  \"servings\": 0,\n  \"author_id\": 1,\n  \"category_id\": 99,\n  \"cuisine_id\": 1,\n  \"ingredients\": [\n    {\n      \"ingredient_id\": 999,\n      \"amount_g\": 100\n    },\n    {\n      \"ingredient_id\": 2,\n      \"amount_g\": 0\n    }\n  ],\n  \"steps\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"\",\n  \"cook_time_min\": 10,\n  \"servings\": 0,\n  \"author_id\": 1,\n  \"category_id\": 99,\n  \"cuisine_id\": 1,\n  \"ingredients\": [\n    {\n      \"ingredient_id\": 999,\n      \"amount_g\": 100\n    },\n    {\n      \"ingredient_id\": 2,\n      \"amount_g\": 0\n    }\n  ],\n  \"steps\": []\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"validation_error\",\n  \"message\": \"Перевірте введені дані\",\n  \"fields\": {\n    \"title\": \"Це поле не може бути порожнім.\",\n    \"servings\": \"Кількість порцій має бути більше 0\",\n    \"category_id\": \"Категорії з id 99 немає\",\n    \"ingredients[0].ingredient_id\": \"Інгредієнта з id 999 немає\",\n    \"ingredients[1].amount_g\": \"Кількість грамів має бути більше 0\",\n    \"steps\": \"Додайте хоча б один крок приготування\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: інгредієнт указано двічі (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Омлет з броколі\",\n  \"description\": \"Швидкий білковий сніданок.\",\n  \"image_url\": \"\",\n  \"cook_time_min\": 15,\n  \"servings\": 1,\n  \"author_id\": 1,\n  \"category_id\": 1,\n  \"cuisine_id\": 5,\n  \"ingredients\": [\n    {\n      \"ingredient_id\": 2,\n      \"amount_g\": 110\n    },\n    {\n      \"ingredient_id\": 2,\n      \"amount_g\": 55\n    }\n  ],\n  \"steps\": [\n    \"Збийте яйця з молоком.\",\n    \"Додайте броколі й залийте яєчною сумішшю.\",\n    \"Готуйте під кришкою 7 хвилин на слабкому вогні.\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Омлет з броколі\",\n  \"description\": \"Швидкий білковий сніданок.\",\n  \"image_url\": \"\",\n  \"cook_time_min\": 15,\n  \"servings\": 1,\n  \"author_id\": 1,\n  \"category_id\": 1,\n  \"cuisine_id\": 5,\n  \"ingredients\": [\n    {\n      \"ingredient_id\": 2,\n      \"amount_g\": 110\n    },\n    {\n      \"ingredient_id\": 2,\n      \"amount_g\": 55\n    }\n  ],\n  \"steps\": [\n    \"Збийте яйця з молоком.\",\n    \"Додайте броколі й залийте яєчною сумішшю.\",\n    \"Готуйте під кришкою 7 хвилин на слабкому вогні.\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"validation_error\",\n  \"message\": \"Перевірте введені дані\",\n  \"fields\": {\n    \"ingredients\": \"Інгредієнт з id 2 указано кілька разів — об'єднайте грамовку\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Редагувати рецепт (порції й інгредієнти)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes/{{recipe_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes",
+                "{{recipe_id}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"servings\": 2,\n  \"ingredients\": [\n    {\n      \"ingredient_id\": 2,\n      \"amount_g\": 220,\n      \"note\": \"4 шт.\"\n    },\n    {\n      \"ingredient_id\": 14,\n      \"amount_g\": 200,\n      \"note\": \"\"\n    },\n    {\n      \"ingredient_id\": 10,\n      \"amount_g\": 100,\n      \"note\": \"1/2 склянки\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes/{{recipe_id}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes",
+                    "{{recipe_id}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"servings\": 2,\n  \"ingredients\": [\n    {\n      \"ingredient_id\": 2,\n      \"amount_g\": 220,\n      \"note\": \"4 шт.\"\n    },\n    {\n      \"ingredient_id\": 14,\n      \"amount_g\": 200,\n      \"note\": \"\"\n    },\n    {\n      \"ingredient_id\": 10,\n      \"amount_g\": 100,\n      \"note\": \"1/2 склянки\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 7,\n  \"title\": \"Омлет з броколі\",\n  \"description\": \"Швидкий білковий сніданок.\",\n  \"image_url\": \"\",\n  \"cook_time_min\": 15,\n  \"servings\": 2,\n  \"category\": {\n    \"id\": 1,\n    \"name\": \"Сніданки\"\n  },\n  \"cuisine\": {\n    \"id\": 5,\n    \"name\": \"Європейська\"\n  },\n  \"author\": {\n    \"id\": 1,\n    \"display_name\": \"Настя\"\n  },\n  \"ingredients\": [\n    {\n      \"ingredient\": {\n        \"id\": 2,\n        \"name\": \"Яйце куряче\"\n      },\n      \"amount_g\": 220.0,\n      \"note\": \"4 шт.\"\n    },\n    {\n      \"ingredient\": {\n        \"id\": 14,\n        \"name\": \"Броколі\"\n      },\n      \"amount_g\": 200.0,\n      \"note\": \"\"\n    },\n    {\n      \"ingredient\": {\n        \"id\": 10,\n        \"name\": \"Молоко 2,5%\"\n      },\n      \"amount_g\": 100.0,\n      \"note\": \"1/2 склянки\"\n    }\n  ],\n  \"steps\": [\n    \"Збийте яйця з молоком.\",\n    \"Додайте броколі й залийте яєчною сумішшю.\",\n    \"Готуйте під кришкою 7 хвилин на слабкому вогні.\"\n  ],\n  \"nutrition_per_serving\": {\n    \"kcal\": 233,\n    \"protein\": 18.2,\n    \"fat\": 14.3,\n    \"carbs\": 9.7\n  },\n  \"created_at\": \"2026-10-27T10:50:17.992701+02:00\",\n  \"updated_at\": \"2026-10-27T10:50:18.009610+02:00\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: змінити автора рецепта (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes/{{recipe_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes",
+                "{{recipe_id}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"author_id\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes/{{recipe_id}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes",
+                    "{{recipe_id}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"author_id\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"validation_error\",\n  \"message\": \"Перевірте введені дані\",\n  \"fields\": {\n    \"author_id\": \"Автора рецепта змінити не можна\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: тіло запиту — не JSON (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes/{{recipe_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes",
+                "{{recipe_id}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"servings\": 3,",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes/{{recipe_id}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes",
+                    "{{recipe_id}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"servings\": 3,",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"parse_error\",\n  \"message\": \"Тіло запиту — некоректний JSON\",\n  \"fields\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Видалити рецепт",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 204\", function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes/{{recipe_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes",
+                "{{recipe_id}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "204 No Content",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes/{{recipe_id}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes",
+                    "{{recipe_id}}"
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Помилка: видалений рецепт (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes/{{recipe_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes",
+                "{{recipe_id}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes/{{recipe_id}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes",
+                    "{{recipe_id}}"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_found\",\n  \"message\": \"Рецепта з id 7 немає\",\n  \"fields\": {}\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Автори",
+      "item": [
+        {
+          "name": "Список авторів",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/authors",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "authors"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/authors",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "authors"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 3,\n  \"page\": 1,\n  \"page_size\": 20,\n  \"results\": [\n    {\n      \"id\": 3,\n      \"display_name\": \"Марія\",\n      \"avatar_url\": \"\",\n      \"recipes_count\": 2\n    },\n    {\n      \"id\": 1,\n      \"display_name\": \"Настя\",\n      \"avatar_url\": \"\",\n      \"recipes_count\": 2\n    },\n    {\n      \"id\": 2,\n      \"display_name\": \"Олег\",\n      \"avatar_url\": \"\",\n      \"recipes_count\": 2\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Пошук автора",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/authors?search=настя",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "authors"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "настя"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/authors?search=настя",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "authors"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "настя"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 1,\n  \"page\": 1,\n  \"page_size\": 20,\n  \"results\": [\n    {\n      \"id\": 1,\n      \"display_name\": \"Настя\",\n      \"avatar_url\": \"\",\n      \"recipes_count\": 2\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Сторінка автора",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/authors/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "authors",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/authors/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "authors",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"display_name\": \"Настя\",\n  \"avatar_url\": \"\",\n  \"bio\": \"Люблю готувати швидкі сніданки\",\n  \"recipes_count\": 2\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: користувач без рецептів — не автор (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/authors/4",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "authors",
+                "4"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/authors/4",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "authors",
+                    "4"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_found\",\n  \"message\": \"Автора з id 4 немає\",\n  \"fields\": {}\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Про нас",
+      "item": [
+        {
+          "name": "Сторінка «Про нас»",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/about",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "about"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/about",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "about"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"description\": \"Порція — сайт рецептів з КБЖВ на порцію і планом харчування.\",\n  \"contacts\": {\n    \"email\": \"hello@portion.example\",\n    \"telegram\": \"@portion_recipes\"\n  },\n  \"nutrition_info\": \"КБЖВ рахується з інгредієнтів за даними на 100 г і ділиться на кількість порцій. Значення орієнтовні.\",\n  \"disclaimer\": \"Сайт не замінює консультацію лікаря чи дієтолога.\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Загальні помилки",
+      "item": [
+        {
+          "name": "Помилка: неіснуюча адреса (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/orders",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_found\",\n  \"message\": \"Такої адреси в API немає\",\n  \"fields\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: метод не підтримується (405)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 405\", function () {",
+                  "    pm.response.to.have.status(405);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"servings\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "405 Method Not Allowed",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes",
+                    "1"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"servings\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"method_not_allowed\",\n  \"message\": \"Метод PUT не підтримується для цієї адреси\",\n  \"fields\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Помилка: неправильний номер сторінки (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Статус 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Помилка в загальному форматі\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.keys(\"error\", \"message\", \"fields\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/recipes?page=0",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recipes"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/recipes?page=0",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "recipes"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"validation_error\",\n  \"message\": \"Перевірте введені дані\",\n  \"fields\": {\n    \"page\": \"Має бути більше 0\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "category_id",
+      "value": ""
+    },
+    {
+      "key": "cuisine_id",
+      "value": ""
+    },
+    {
+      "key": "ingredient_id",
+      "value": ""
+    },
+    {
+      "key": "recipe_id",
+      "value": ""
+    }
+  ]
+}
