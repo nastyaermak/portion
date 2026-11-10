@@ -9,6 +9,8 @@ from rest_framework.views import exception_handler as drf_exception_handler
 
 CODES = {
     400: ("validation_error", "Перевірте введені дані"),
+    401: ("not_authenticated", "Увійдіть в акаунт, щоб виконати цю дію"),
+    403: ("permission_denied", "Недостатньо прав для цієї дії"),
     404: ("not_found", "Такого об'єкта немає"),
     405: ("method_not_allowed", "Цей метод не підтримується для цієї адреси"),
     409: ("conflict", "Дію не можна виконати"),
@@ -90,6 +92,25 @@ def exception_handler(exc, context):
             else None
         )
         response.data = error_body(404, message=message)
+    elif isinstance(exc, exceptions.NotAuthenticated):
+        response.data = error_body(401)
+    elif isinstance(exc, exceptions.AuthenticationFailed):
+        if isinstance(exc.detail, dict):
+            # Недійсний або прострочений токен (simplejwt)
+            response.data = error_body(
+                401,
+                message=(
+                    "Токен недійсний або прострочений. "
+                    "Оновіть його або увійдіть знову"
+                ),
+                code="token_not_valid",
+            )
+        else:
+            response.data = error_body(
+                401, message=str(exc.detail), code=exc.detail.code
+            )
+    elif isinstance(exc, exceptions.PermissionDenied):
+        response.data = error_body(403, message=str(exc.detail))
     elif isinstance(exc, exceptions.MethodNotAllowed):
         response.data = error_body(
             405,
