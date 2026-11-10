@@ -5,6 +5,7 @@ from config.errors import not_found_view
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/", include("users.urls")),
     path("api/", include("recipes.urls")),
     # Невідомі адреси API теж відповідають JSON у загальному форматі помилки
     re_path(r"^api/", not_found_view),
