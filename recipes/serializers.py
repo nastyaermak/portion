@@ -254,11 +254,6 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
     КБЖВ не передається — сервер рахує його сам.
     """
 
-    author_id = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(),
-        source="author",
-        error_messages={"does_not_exist": "Користувача з id {pk_value} немає"},
-    )
     category_id = serializers.PrimaryKeyRelatedField(
         queryset=Category.objects.all(),
         source="category",
@@ -294,7 +289,6 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
             "image_url",
             "cook_time_min",
             "servings",
-            "author_id",
             "category_id",
             "cuisine_id",
             "ingredients",
@@ -318,17 +312,6 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
                 "указано кілька разів — об'єднайте грамовку"
             )
         return value
-
-    def validate(self, attrs):
-        if (
-            self.instance is not None
-            and "author" in attrs
-            and attrs["author"] != self.instance.author
-        ):
-            raise serializers.ValidationError(
-                {"author_id": "Автора рецепта змінити не можна"}
-            )
-        return attrs
 
     def save_children(self, recipe, ingredients, steps):
         """Списки інгредієнтів і кроків замінюються повністю."""

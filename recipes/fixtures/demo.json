@@ -5,13 +5,14 @@
     "fields": {
       "username": "nastya",
       "email": "nastya@example.com",
-      "password": "!",
+      "password": "pbkdf2_sha256$600000$65X1qlA6E1D7tWEYSTBQGH$7LSMwfD8In1C91rQqBOdP842WDp94xZFvdkmY8usAeI=",
       "display_name": "Настя",
       "bio": "Люблю готувати швидкі сніданки",
       "avatar_url": "",
       "is_active": true,
       "date_joined": "2026-10-01T10:00:00Z",
-      "created_at": "2026-10-01T10:00:00Z"
+      "created_at": "2026-10-01T10:00:00Z",
+      "is_staff": true
     }
   },
   {
@@ -20,7 +21,7 @@
     "fields": {
       "username": "oleh",
       "email": "oleh@example.com",
-      "password": "!",
+      "password": "pbkdf2_sha256$600000$FcjdMkokc2Ez3CsGKUhGHA$w4vTvE92SoWhBZWDEoCeJhf9eC+8vBOiGsjGxQCG+Ko=",
       "display_name": "Олег",
       "bio": "Готую прості страви з високим вмістом білка",
       "avatar_url": "",
@@ -35,7 +36,7 @@
     "fields": {
       "username": "maria",
       "email": "maria@example.com",
-      "password": "!",
+      "password": "pbkdf2_sha256$600000$Gkr4VdiVO2q9rxmA7sGYXQ$vyhNO7iij4HkFTgRY90FKas/qqF01sbjf/bnksMk06s=",
       "display_name": "Марія",
       "bio": "Українська кухня, як у бабусі",
       "avatar_url": "",
@@ -50,7 +51,7 @@
     "fields": {
       "username": "ivan",
       "email": "ivan@example.com",
-      "password": "!",
+      "password": "pbkdf2_sha256$600000$RW0PFEGWX4mBpZ4dzuaeTh$KAgcIAfSihw4s/faXbiQDMqDH0lCTnSWgHJ1Ix+ztpU=",
       "display_name": "Іван",
       "bio": "",
       "avatar_url": "",

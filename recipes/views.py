@@ -8,6 +8,11 @@ from rest_framework.views import APIView
 
 from config.errors import Conflict
 from config.pagination import paginate, positive_int
+from users.permissions import (
+    IsAdminOrReadOnly,
+    IsAuthenticatedOrReadOnly,
+    IsAuthorOrAdminOrReadOnly,
+)
 
 from .models import Category, Cuisine, Ingredient, Recipe, RecipeIngredient
 from .serializers import (
@@ -115,8 +120,10 @@ class DictionaryListView(APIView):
     """Спільне для категорій і кухонь.
 
     GET — перелік (без сторінок), POST — додати.
+    Змінювати довідники може тільки адміністратор.
     """
 
+    permission_classes = [IsAdminOrReadOnly]
     model = None
     serializer_class = None
 
@@ -210,6 +217,10 @@ def ingredient_queryset():
 
 
 class IngredientListView(APIView):
+    # Додати інгредієнт може будь-який залогінений користувач,
+    # бо без нього не вийде додати рецепт
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get(self, request):
         queryset = ingredient_queryset()
         queryset = search_filter(
@@ -228,6 +239,10 @@ class IngredientListView(APIView):
 
 
 class IngredientDetailView(APIView):
+    # Змінити чи видалити інгредієнт — тільки адміністратор,
+    # бо від нього залежить КБЖВ чужих рецептів
+    permission_classes = [IsAdminOrReadOnly]
+
     def get_object(self, pk):
         return get_or_404(
             ingredient_queryset(), pk, f"Інгредієнта з id {pk} немає"
@@ -260,6 +275,8 @@ class IngredientDetailView(APIView):
 
 
 class RecipeListView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get(self, request):
         params = request.query_params
         queryset = Recipe.objects.all()
@@ -307,7 +324,8 @@ class RecipeListView(APIView):
     def post(self, request):
         serializer = RecipeWriteSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        recipe = serializer.save()
+        # Автор — завжди той, хто залогінений
+        recipe = serializer.save(author=request.user)
         return Response(
             RecipeDetailSerializer(
                 recipe_detail_queryset().get(pk=recipe.pk)
@@ -317,10 +335,14 @@ class RecipeListView(APIView):
 
 
 class RecipeDetailView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly, IsAuthorOrAdminOrReadOnly]
+
     def get_object(self, pk):
-        return get_or_404(
+        recipe = get_or_404(
             recipe_detail_queryset(), pk, f"Рецепта з id {pk} немає"
         )
+        self.check_object_permissions(self.request, recipe)
+        return recipe
 
     def get(self, request, pk):
         return Response(RecipeDetailSerializer(self.get_object(pk)).data)
