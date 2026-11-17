@@ -1,0 +1,11 @@
+[run]
+source = .
+omit =
+    .venv/*
+    venv/*
+    */migrations/*
+    */tests/*
+    conftest.py
+    manage.py
+    config/asgi.py
+    config/wsgi.py

@@ -9,3 +9,11 @@ db.sqlite3
 .idea/
 .vscode/
 .DS_Store
+
+# Секрети
+.env
+
+# Тести й покриття
+.pytest_cache/
+.coverage
+htmlcov/

@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 
+from decouple import Csv, config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,15 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = (
-    "django-insecure-g$s%&-n-sqr@r#i_-nh1htapkg*a*9xy=og+s_5oflhp+6*92&"
-)
+# Секрети й налаштування середовища беруться з файлу .env
+# (див. .env.example). Справжній .env не потрапляє в Git.
+SECRET_KEY = config("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="", cast=Csv())
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "rest_framework_simplejwt",
+    "drf_spectacular",
     "users",
     "recipes",
 ]
@@ -85,7 +86,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / config("DB_NAME", default="db.sqlite3"),
     }
 }
 
@@ -146,6 +147,23 @@ REST_FRAMEWORK = {
     ],
     "EXCEPTION_HANDLER": "config.errors.exception_handler",
     "COERCE_DECIMAL_TO_STRING": False,
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+# OpenAPI-документація (drf-spectacular): /api/schema, /api/docs, /api/redoc
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Порція API",
+    "DESCRIPTION": (
+        "API сайту рецептів з КБЖВ на порцію. "
+        "Читати дані може кожен; створювати рецепти — залогінені "
+        "користувачі (JWT: заголовок Authorization: Bearer <access>); "
+        "редагувати й видаляти рецепт — його автор або адміністратор. "
+        "Усі помилки мають формат "
+        '{"error": ..., "message": ..., "fields": {...}}.'
+    ),
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "COMPONENT_SPLIT_REQUEST": True,
 }
 
 # JWT: короткий access-токен і довший refresh-токен.
@@ -158,7 +176,42 @@ SIMPLE_JWT = {
 }
 
 # Фронтенд запускається окремо на порту 5500
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5500",
-    "http://127.0.0.1:5500",
-]
+CORS_ALLOWED_ORIGINS = config(
+    "CORS_ALLOWED_ORIGINS",
+    default="http://localhost:5500,http://127.0.0.1:5500",
+    cast=Csv(),
+)
+
+# Логування: усе пишеться в консоль; рівень для коду проєкту — з .env.
+# Логер "portion" — для подій API (рецепти, вхід, помилки доступу).
+LOG_LEVEL = config("LOG_LEVEL", default="INFO")
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "simple": {
+            "format": "{asctime} {levelname} {name}: {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+    },
+    "root": {"handlers": ["console"], "level": "WARNING"},
+    "loggers": {
+        "portion": {
+            "handlers": ["console"],
+            "level": LOG_LEVEL,
+            "propagate": False,
+        },
+        "django.request": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+    },
+}

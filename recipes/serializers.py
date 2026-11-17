@@ -3,6 +3,7 @@ from decimal import Decimal
 from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.db.models.functions import Lower
+from drf_spectacular.utils import extend_schema_field, inline_serializer
 from rest_framework import serializers
 
 from config.errors import Conflict
@@ -31,6 +32,22 @@ def nutrition(kcal, protein, fat, carbs):
         "fat": round(float(fat or 0), 1),
         "carbs": round(float(carbs or 0), 1),
     }
+
+
+NUTRITION_SCHEMA = inline_serializer(
+    "Nutrition",
+    fields={
+        "kcal": serializers.IntegerField(),
+        "protein": serializers.FloatField(),
+        "fat": serializers.FloatField(),
+        "carbs": serializers.FloatField(),
+    },
+)
+
+SHORT_INGREDIENT_SCHEMA = inline_serializer(
+    "ShortIngredient",
+    fields={"id": serializers.IntegerField(), "name": serializers.CharField()},
+)
 
 
 class UniqueNameMixin:
@@ -184,6 +201,7 @@ class RecipeListSerializer(serializers.ModelSerializer):
             "nutrition_per_serving",
         ]
 
+    @extend_schema_field(NUTRITION_SCHEMA)
     def get_nutrition_per_serving(self, recipe):
         return nutrition(recipe.kcal, recipe.protein, recipe.fat, recipe.carbs)
 
@@ -196,6 +214,7 @@ class RecipeIngredientReadSerializer(serializers.ModelSerializer):
         model = RecipeIngredient
         fields = ["ingredient", "amount_g", "note"]
 
+    @extend_schema_field(SHORT_INGREDIENT_SCHEMA)
     def get_ingredient(self, item):
         return {"id": item.ingredient_id, "name": item.ingredient.name}
 
@@ -224,6 +243,7 @@ class RecipeDetailSerializer(RecipeListSerializer):
             "updated_at",
         ]
 
+    @extend_schema_field(serializers.ListField(child=serializers.CharField()))
     def get_steps(self, recipe):
         return [step.text for step in recipe.steps.all()]
 

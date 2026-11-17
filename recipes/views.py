@@ -1,13 +1,23 @@
+import logging
+
 from django.contrib.auth import get_user_model
 from django.db.models import Count, F, FloatField, Prefetch, Sum
 from django.db.models.functions import Cast, Lower
-from rest_framework import status
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import (
+    OpenApiExample,
+    OpenApiParameter,
+    extend_schema,
+    inline_serializer,
+)
+from rest_framework import serializers, status
 from rest_framework.exceptions import NotFound, ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from config.errors import Conflict
 from config.pagination import paginate, positive_int
+from config.schema import ERROR_400, ERROR_401, ERROR_403, ERROR_404
 from users.permissions import (
     IsAdminOrReadOnly,
     IsAuthenticatedOrReadOnly,
@@ -27,6 +37,37 @@ from .serializers import (
 )
 
 User = get_user_model()
+
+logger = logging.getLogger("portion.recipes")
+
+RECIPE_PAGE = inline_serializer(
+    "RecipePage",
+    fields={
+        "count": serializers.IntegerField(),
+        "page": serializers.IntegerField(),
+        "page_size": serializers.IntegerField(),
+        "results": RecipeListSerializer(many=True),
+    },
+)
+
+RECIPE_EXAMPLE = OpenApiExample(
+    "Новий рецепт",
+    value={
+        "title": "Омлет зі шпинатом",
+        "description": "Швидкий сніданок",
+        "image_url": "",
+        "cook_time_min": 10,
+        "servings": 1,
+        "category_id": 1,
+        "cuisine_id": 1,
+        "ingredients": [
+            {"ingredient_id": 1, "amount_g": 120, "note": "2 шт."},
+            {"ingredient_id": 2, "amount_g": 50},
+        ],
+        "steps": ["Збити яйця", "Додати шпинат і смажити 5 хвилин"],
+    },
+    request_only=True,
+)
 
 SORTS = {
     "kcal": ["kcal", "id"],
@@ -277,6 +318,50 @@ class IngredientDetailView(APIView):
 class RecipeListView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    @extend_schema(
+        tags=["Рецепти"],
+        summary="Каталог рецептів",
+        operation_id="recipes_list",
+        description=(
+            "Список рецептів з КБЖВ на порцію, з пошуком, фільтрами, "
+            "сортуванням і сторінками. Доступно без входу."
+        ),
+        parameters=[
+            OpenApiParameter("search", str, description="Пошук у назві"),
+            OpenApiParameter(
+                "ingredient",
+                int,
+                many=True,
+                description="id інгредієнта; можна кілька разів",
+            ),
+            OpenApiParameter("category", int, description="id категорії"),
+            OpenApiParameter("cuisine", int, description="id кухні"),
+            OpenApiParameter("author", int, description="id автора"),
+            OpenApiParameter(
+                "max_time", OpenApiTypes.NUMBER, description="Макс. хвилин"
+            ),
+            OpenApiParameter(
+                "max_kcal",
+                OpenApiTypes.NUMBER,
+                description="Макс. ккал на порцію",
+            ),
+            OpenApiParameter(
+                "min_protein",
+                OpenApiTypes.NUMBER,
+                description="Мін. білка (г) на порцію",
+            ),
+            OpenApiParameter(
+                "sort",
+                str,
+                enum=list(SORTS),
+                default="-created_at",
+                description="Сортування",
+            ),
+            OpenApiParameter("page", int, default=1),
+            OpenApiParameter("page_size", int, default=20),
+        ],
+        responses={200: RECIPE_PAGE, 400: ERROR_400},
+    )
     def get(self, request):
         params = request.query_params
         queryset = Recipe.objects.all()
@@ -321,11 +406,30 @@ class RecipeListView(APIView):
         queryset = queryset.order_by(*SORTS[sort])
         return Response(paginate(request, queryset, RecipeListSerializer))
 
+    @extend_schema(
+        tags=["Рецепти"],
+        summary="Додати рецепт",
+        operation_id="recipes_create",
+        description=(
+            "Потрібен вхід (JWT). Автором стає залогінений користувач. "
+            "КБЖВ не передається — сервер рахує його з інгредієнтів."
+        ),
+        request=RecipeWriteSerializer,
+        responses={
+            201: RecipeDetailSerializer,
+            400: ERROR_400,
+            401: ERROR_401,
+        },
+        examples=[RECIPE_EXAMPLE],
+    )
     def post(self, request):
         serializer = RecipeWriteSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         # Автор — завжди той, хто залогінений
         recipe = serializer.save(author=request.user)
+        logger.info(
+            "Recipe created: id=%s by user id=%s", recipe.pk, request.user.pk
+        )
         return Response(
             RecipeDetailSerializer(
                 recipe_detail_queryset().get(pk=recipe.pk)
@@ -344,19 +448,69 @@ class RecipeDetailView(APIView):
         self.check_object_permissions(self.request, recipe)
         return recipe
 
+    @extend_schema(
+        tags=["Рецепти"],
+        summary="Рецепт повністю",
+        operation_id="recipes_retrieve",
+        description="Інгредієнти, кроки й КБЖВ на порцію. Доступно без входу.",
+        responses={200: RecipeDetailSerializer, 404: ERROR_404},
+    )
     def get(self, request, pk):
         return Response(RecipeDetailSerializer(self.get_object(pk)).data)
 
+    @extend_schema(
+        tags=["Рецепти"],
+        summary="Змінити рецепт",
+        operation_id="recipes_partial_update",
+        description=(
+            "Тільки автор рецепта або адміністратор. Можна передати лише "
+            "частину полів; ingredients і steps замінюються повністю."
+        ),
+        request=RecipeWriteSerializer,
+        responses={
+            200: RecipeDetailSerializer,
+            400: ERROR_400,
+            401: ERROR_401,
+            403: ERROR_403,
+            404: ERROR_404,
+        },
+        examples=[
+            OpenApiExample(
+                "Змінити кількість порцій",
+                value={"servings": 2},
+                request_only=True,
+            )
+        ],
+    )
     def patch(self, request, pk):
         serializer = RecipeWriteSerializer(
             self.get_object(pk), data=request.data, partial=True
         )
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        logger.info(
+            "Recipe updated: id=%s by user id=%s, fields=%s",
+            pk,
+            request.user.pk,
+            sorted(serializer.validated_data),
+        )
         return Response(RecipeDetailSerializer(self.get_object(pk)).data)
 
+    @extend_schema(
+        tags=["Рецепти"],
+        summary="Видалити рецепт",
+        operation_id="recipes_destroy",
+        description="Тільки автор рецепта або адміністратор.",
+        responses={
+            204: None,
+            401: ERROR_401,
+            403: ERROR_403,
+            404: ERROR_404,
+        },
+    )
     def delete(self, request, pk):
         self.get_object(pk).delete()
+        logger.info("Recipe deleted: id=%s by user id=%s", pk, request.user.pk)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
