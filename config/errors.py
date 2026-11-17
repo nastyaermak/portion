@@ -3,9 +3,13 @@
 Кожна помилка має вигляд {"error": ..., "message": ..., "fields": {...}}.
 """
 
+import logging
+
 from django.http import Http404, JsonResponse
 from rest_framework import exceptions, status
 from rest_framework.views import exception_handler as drf_exception_handler
+
+logger = logging.getLogger("portion.errors")
 
 CODES = {
     400: ("validation_error", "Перевірте введені дані"),
@@ -69,6 +73,30 @@ def flatten(detail, prefix=""):
     return result
 
 
+def log_client_error(status_code, exc, context):
+    """Пише в лог помилку клієнта.
+
+    401 і 403 — WARNING (спроба дії без входу чи без прав), решта 4xx —
+    INFO. У лог іде лише метод, шлях, id користувача і тип помилки, без
+    тіла запиту й токенів.
+    """
+    request = context.get("request")
+    if request is None:
+        return
+    user = getattr(request, "user", None)
+    user_id = user.pk if user is not None and user.is_authenticated else None
+    level = logging.WARNING if status_code in (401, 403) else logging.INFO
+    logger.log(
+        level,
+        "%s %s -> %s %s (user id=%s)",
+        request.method,
+        request.path,
+        status_code,
+        type(exc).__name__,
+        user_id,
+    )
+
+
 def exception_handler(exc, context):
     """Обробник помилок DRF, який приводить усі відповіді до одного формату."""
     if isinstance(exc, Http404):
@@ -76,6 +104,7 @@ def exception_handler(exc, context):
     response = drf_exception_handler(exc, context)
     if response is None:
         return None
+    log_client_error(response.status_code, exc, context)
 
     if isinstance(exc, exceptions.ValidationError):
         fields = flatten(exc.detail)
