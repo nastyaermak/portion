@@ -4,9 +4,8 @@ import pytest
 
 from conftest import PASSWORD
 
-pytestmark = pytest.mark.django_db
 
-
+@pytest.mark.django_db
 def test_register(api_client):
     response = api_client.post(
         "/api/auth/register",
@@ -24,6 +23,7 @@ def test_register(api_client):
     assert "password" not in response.data
 
 
+@pytest.mark.django_db
 def test_register_duplicate_username_is_rejected(api_client, author):
     response = api_client.post(
         "/api/auth/register",
@@ -40,6 +40,7 @@ def test_register_duplicate_username_is_rejected(api_client, author):
     assert response.data["fields"]["username"] == "Такий username уже зайнятий"
 
 
+@pytest.mark.django_db
 def test_login_returns_tokens(api_client, author):
     response = api_client.post(
         "/api/auth/login",
@@ -51,6 +52,7 @@ def test_login_returns_tokens(api_client, author):
     assert {"access", "refresh"} <= set(response.data)
 
 
+@pytest.mark.django_db
 def test_login_wrong_password_is_401_and_password_not_logged(
     api_client, author, caplog
 ):
@@ -68,10 +70,12 @@ def test_login_wrong_password_is_401_and_password_not_logged(
     assert "Failed login" in caplog.text
 
 
+@pytest.mark.django_db
 def test_me_requires_login(api_client):
     assert api_client.get("/api/me").status_code == 401
 
 
+@pytest.mark.django_db
 def test_me_returns_profile(author_client, author):
     response = author_client.get("/api/me")
 

@@ -6,7 +6,6 @@
 
 import pytest
 from rest_framework.test import APIClient
-from rest_framework_simplejwt.tokens import RefreshToken
 
 from recipes.models import (
     Category,
@@ -32,10 +31,14 @@ def make_user(username, **extra):
 
 
 def client_for(user):
-    """API-клієнт із JWT access-токеном користувача."""
+    """Входить через /api/auth/login і повертає клієнт з access-токеном."""
     client = APIClient()
-    token = RefreshToken.for_user(user).access_token
-    client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+    tokens = client.post(
+        "/api/auth/login",
+        {"username": user.username, "password": PASSWORD},
+        format="json",
+    ).data
+    client.credentials(HTTP_AUTHORIZATION=f'Bearer {tokens["access"]}')
     return client
 
 

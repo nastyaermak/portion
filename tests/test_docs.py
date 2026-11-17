@@ -2,9 +2,8 @@
 
 import pytest
 
-pytestmark = pytest.mark.django_db
 
-
+@pytest.mark.django_db
 def test_schema_describes_recipes(api_client):
     response = api_client.get("/api/schema", {"format": "json"})
 
@@ -14,6 +13,15 @@ def test_schema_describes_recipes(api_client):
     assert set(paths["/api/recipes/{id}"]) >= {"get", "patch", "delete"}
 
 
-@pytest.mark.parametrize("url", ["/api/docs", "/api/redoc"])
-def test_docs_pages_open(api_client, url):
-    assert api_client.get(url).status_code == 200
+@pytest.mark.django_db
+def test_swagger_page_opens(api_client):
+    response = api_client.get("/api/docs")
+
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_redoc_page_opens(api_client):
+    response = api_client.get("/api/redoc")
+
+    assert response.status_code == 200
